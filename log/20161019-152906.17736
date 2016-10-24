@@ -1,0 +1,9 @@
+Log file created at: 2016/10/19 15:29:06
+Running on machine: DESKTOP-PCPPFQT
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1019 15:29:06.713624 40268 taskmain.cpp:65] Init log modules success
+I1019 15:29:06.714624 40268 taskmain.cpp:66] noise check back addr:tcp://127.0.0.1:18001! recog back addr:tcp://127.0.0.1:17001
+I1019 15:29:06.714624 40268 taskmain.cpp:67] ASR Server Addr: tcp://192.168.2.167:5859
+I1019 15:29:06.963801 40268 taskmain.cpp:80] Init Encrypted dog authentication ret:1
+I1019 15:29:06.963801 40268 taskmain.cpp:86] Init CriticalSection CGlobalSettings::csMapCtrl success
+I1019 15:29:10.756505 40268 taskmain.cpp:101] Init RTSP failed! Please check whether the port is occupied!

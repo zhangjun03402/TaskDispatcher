@@ -1,0 +1,596 @@
+Log file created at: 2016/10/21 12:53:16
+Running on machine: DESKTOP-PCPPFQT
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1021 12:53:16.829360  6444 taskmain.cpp:65] Init log modules success
+I1021 12:53:16.830360  6444 taskmain.cpp:66] noise check back addr:tcp://127.0.0.1:19001! recog back addr:tcp://127.0.0.1:20001
+I1021 12:53:16.830360  6444 taskmain.cpp:67] ASR Server Addr: tcp://192.168.2.167:5859
+I1021 12:53:16.879395  6444 taskmain.cpp:80] Init Encrypted dog authentication ret:1
+I1021 12:53:16.879395  6444 taskmain.cpp:86] Init CriticalSection CGlobalSettings::csMapCtrl success
+I1021 12:53:16.883397  6444 taskmain.cpp:110] Create zmq context success
+I1021 12:53:16.883397  6444 taskmain.cpp:120] new task control success
+I1021 12:53:16.885399 17780 taskdispatch.cpp:46] Enter ProcessNoiseCheck process....!addr:[tcp://127.0.0.1:19001],args:[00000000],thread[17780]
+I1021 12:53:16.885399  2616 taskdispatch.cpp:46] Enter ProcessNoiseCheck process....!addr:[tcp://127.0.0.1:19001],args:[00000001],thread[2616]
+I1021 12:53:16.885399 20148 taskdispatch.cpp:46] Enter ProcessNoiseCheck process....!addr:[tcp://127.0.0.1:19001],args:[00000002],thread[20148]
+I1021 12:53:16.885399 35448 taskdispatch.cpp:46] Enter ProcessNoiseCheck process....!addr:[tcp://127.0.0.1:19001],args:[00000003],thread[35448]
+I1021 12:53:16.886400  6444 taskmain.cpp:139] Create voice check threads success
+I1021 12:53:16.886400 24720 taskdispatch.cpp:46] Enter ProcessNoiseCheck process....!addr:[tcp://127.0.0.1:19001],args:[00000004],thread[24720]
+I1021 12:53:16.886400 42108 taskdispatch.cpp:277] Enter ProcessVoiceDetector process....!addr:[tcp://127.0.0.1:20001]
+I1021 12:53:16.886400 24360 taskdispatch.cpp:277] Enter ProcessVoiceDetector process....!addr:[tcp://127.0.0.1:20001]
+I1021 12:53:16.886400 23820 taskdispatch.cpp:277] Enter ProcessVoiceDetector process....!addr:[tcp://127.0.0.1:20001]
+I1021 12:53:16.887400 39312 taskdispatch.cpp:277] Enter ProcessVoiceDetector process....!addr:[tcp://127.0.0.1:20001]
+I1021 12:53:16.887400  6444 taskmain.cpp:150] Create speech recognize threads success
+I1021 12:53:16.887400 40720 taskdispatch.cpp:277] Enter ProcessVoiceDetector process....!addr:[tcp://127.0.0.1:20001]
+I1021 12:53:16.892403 24968 taskcontrol.cpp:28] Create Audio Check Front Socket to tcp://*:19000 success
+I1021 12:53:16.895406 15976 taskcontrol.cpp:83] Create voice recognize front socket to tcp://*:20000 success
+I1021 12:53:16.898408 15976 taskcontrol.cpp:101] Create voice recognize back socket to tcp://*:20001 success
+I1021 12:53:16.901410  2616 taskdispatch.cpp:62] current thread number:1 thread_id:2616
+I1021 12:53:16.905414 20148 taskdispatch.cpp:62] current thread number:2 thread_id:20148
+I1021 12:53:16.908416 35448 taskdispatch.cpp:62] current thread number:3 thread_id:35448
+I1021 12:53:16.911418 24720 taskdispatch.cpp:62] current thread number:4 thread_id:24720
+I1021 12:53:16.915421 42108 taskdispatch.cpp:293] current thread number: 0£¬ thread id:42108
+I1021 12:53:16.919423 24360 taskdispatch.cpp:293] current thread number: 1£¬ thread id:24360
+I1021 12:53:16.923426 23820 taskdispatch.cpp:293] current thread number: 2£¬ thread id:23820
+I1021 12:53:16.927430 39312 taskdispatch.cpp:293] current thread number: 3£¬ thread id:39312
+I1021 12:53:16.932432 40720 taskdispatch.cpp:293] current thread number: 4£¬ thread id:40720
+I1021 12:53:16.934435 24968 taskcontrol.cpp:46] Binding Back Socket to tcp://*:19001 success
+I1021 12:53:16.939437 17780 taskdispatch.cpp:62] current thread number:0 thread_id:17780
+I1021 12:53:17.087546 17780 taskdispatch.cpp:97] Check thread received request from the 0's client whose thread:17780 data[{
+	"request_type":"audio_state_checker",
+	"request_value":{
+		"duration":10000000,
+		"media_url":"rtsp://192.168.2.168/trials/normal.mp4",
+		"start_time":0,
+		"task_id":"84ed0a61f02e4944b020bbd40488905f",
+		"value_post_time":60000
+	}
+}]
+I1021 12:53:17.087546 17780 taskdispatch.cpp:175] ProcessNoiseCheck req_type £ºE_BIZ_TYPE_CHECK
+I1021 12:53:17.088543 17780 taskdispatch.cpp:224] recv rtsp url: rtsp://192.168.2.168/trials/normal.mp4
+I1021 12:53:17.088543 17780 getrtspurldata.cpp:241] Enter GetRtspUrlData::asr_voice_quality_detection process...
+I1021 12:53:17.156592 17780 getrtspurldata.cpp:301] voice check module:start rtsp finish,handle:[09498E58]
+I1021 12:53:17.156592 17780 getrtspurldata.cpp:323] begin process voice check...
+I1021 12:53:19.738536  2616 taskdispatch.cpp:97] Check thread received request from the 1's client whose thread:2616 data[{
+	"request_type":"audio_state_checker",
+	"request_value":{
+		"duration":10000000,
+		"media_url":"rtsp://192.168.2.168/trials/normal.mp4",
+		"start_time":0,
+		"task_id":"a016fc797f1d4799a250f17e84fd20cd",
+		"value_post_time":60000
+	}
+}]
+I1021 12:53:19.739537  2616 taskdispatch.cpp:175] ProcessNoiseCheck req_type £ºE_BIZ_TYPE_CHECK
+I1021 12:53:19.739537  2616 taskdispatch.cpp:224] recv rtsp url: rtsp://192.168.2.168/trials/normal.mp4
+I1021 12:53:19.739537  2616 getrtspurldata.cpp:241] Enter GetRtspUrlData::asr_voice_quality_detection process...
+I1021 12:53:19.806584  2616 getrtspurldata.cpp:301] voice check module:start rtsp finish,handle:[0957D410]
+I1021 12:53:19.806584  2616 getrtspurldata.cpp:323] begin process voice check...
+I1021 12:53:23.318084 20148 taskdispatch.cpp:97] Check thread received request from the 2's client whose thread:20148 data[{
+	"request_type":"audio_state_checker",
+	"request_value":{
+		"duration":10000000,
+		"media_url":"rtsp://192.168.2.168/trials/normal.mp4",
+		"start_time":0,
+		"task_id":"0bd279186c24423b9b7f248f66f6a633",
+		"value_post_time":60000
+	}
+}]
+I1021 12:53:23.319092 20148 taskdispatch.cpp:175] ProcessNoiseCheck req_type £ºE_BIZ_TYPE_CHECK
+I1021 12:53:23.319092 20148 taskdispatch.cpp:224] recv rtsp url: rtsp://192.168.2.168/trials/normal.mp4
+I1021 12:53:23.319092 20148 getrtspurldata.cpp:241] Enter GetRtspUrlData::asr_voice_quality_detection process...
+I1021 12:53:23.387135 20148 getrtspurldata.cpp:301] voice check module:start rtsp finish,handle:[0E93F418]
+I1021 12:53:23.387135 20148 getrtspurldata.cpp:323] begin process voice check...
+I1021 12:54:17.633761 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 43 end: 60024,  clip, speech, noise:0	23.7085	22.8555
+I1021 12:54:20.273640  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 43 end: 60024,  clip, speech, noise:0	23.7085	22.8555
+I1021 12:54:23.855190 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 43 end: 60024,  clip, speech, noise:0	23.7085	22.8555
+I1021 12:54:39.481317 35448 taskdispatch.cpp:97] Check thread received request from the 3's client whose thread:35448 data[{
+	"request_type":"audio_state_checker",
+	"request_value":{
+		"duration":10000000,
+		"media_url":"rtsp://192.168.2.168/trials/normal.mp4",
+		"start_time":0,
+		"task_id":"4dc6a05326ab4ff894fe045f3e1ed233",
+		"value_post_time":60000
+	}
+}]
+I1021 12:54:39.481317 35448 taskdispatch.cpp:175] ProcessNoiseCheck req_type £ºE_BIZ_TYPE_CHECK
+I1021 12:54:39.481317 35448 taskdispatch.cpp:224] recv rtsp url: rtsp://192.168.2.168/trials/normal.mp4
+I1021 12:54:39.482317 35448 getrtspurldata.cpp:241] Enter GetRtspUrlData::asr_voice_quality_detection process...
+I1021 12:54:39.547363 35448 getrtspurldata.cpp:301] voice check module:start rtsp finish,handle:[0EA1DD18]
+I1021 12:54:39.547363 35448 getrtspurldata.cpp:323] begin process voice check...
+I1021 12:54:44.094601 24720 taskdispatch.cpp:97] Check thread received request from the 4's client whose thread:24720 data[{
+	"request_type":"audio_state_checker",
+	"request_value":{
+		"duration":10000000,
+		"media_url":"rtsp://192.168.2.168/trials/normal.mp4",
+		"start_time":0,
+		"task_id":"c97b5f80f6d54f358366c704362f8d8a",
+		"value_post_time":60000
+	}
+}]
+I1021 12:54:44.094601 24720 taskdispatch.cpp:175] ProcessNoiseCheck req_type £ºE_BIZ_TYPE_CHECK
+I1021 12:54:44.095602 24720 taskdispatch.cpp:224] recv rtsp url: rtsp://192.168.2.168/trials/normal.mp4
+I1021 12:54:44.095602 24720 getrtspurldata.cpp:241] Enter GetRtspUrlData::asr_voice_quality_detection process...
+I1021 12:54:44.161649 24720 getrtspurldata.cpp:301] voice check module:start rtsp finish,handle:[038AADB0]
+I1021 12:54:44.161649 24720 getrtspurldata.cpp:323] begin process voice check...
+I1021 12:55:18.552136 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 60024 end: 120007,  clip, speech, noise:0	52.2728	24.9673
+I1021 12:55:21.186012  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 60024 end: 120007,  clip, speech, noise:0	52.2728	24.9673
+I1021 12:55:24.778570 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 60024 end: 120007,  clip, speech, noise:0	52.2728	24.9673
+I1021 12:55:40.020423 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 42 end: 60024,  clip, speech, noise:0	24.1603	22.8775
+I1021 12:55:44.650720 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 42 end: 60024,  clip, speech, noise:0	23.7085	22.8555
+I1021 12:56:19.484524 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 120007 end: 180031,  clip, speech, noise:0	45.0163	22.9189
+I1021 12:56:22.115396  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 120007 end: 180031,  clip, speech, noise:0	45.0163	22.9189
+I1021 12:56:25.704953 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 120007 end: 180031,  clip, speech, noise:0	45.0163	22.9189
+I1021 12:56:40.933796 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 60024 end: 120007,  clip, speech, noise:0	51.5327	24.7984
+I1021 12:56:45.573099 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 60024 end: 120007,  clip, speech, noise:0	52.2728	24.9673
+I1021 12:57:20.401433 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 180031 end: 240014,  clip, speech, noise:0	49.2873	24.5508
+I1021 12:57:23.033308  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 180031 end: 240014,  clip, speech, noise:0	49.2873	24.5508
+I1021 12:57:26.622864 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 180031 end: 240014,  clip, speech, noise:0	49.2873	24.5508
+I1021 12:57:41.895738 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 120007 end: 180031,  clip, speech, noise:0	45.0451	22.8193
+I1021 12:57:46.485005 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 120007 end: 180031,  clip, speech, noise:0	45.0163	22.9189
+I1021 12:58:21.330818 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 240014 end: 300038,  clip, speech, noise:0	53.8039	24.6739
+I1021 12:58:24.000718  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 240014 end: 300038,  clip, speech, noise:0	53.8039	24.6739
+I1021 12:58:27.578266 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 240014 end: 300038,  clip, speech, noise:0	53.8039	24.6739
+I1021 12:58:42.785094 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 180031 end: 240014,  clip, speech, noise:0	49.597	23.806
+I1021 12:58:47.412389 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 180031 end: 240014,  clip, speech, noise:0	49.2873	24.5508
+I1021 12:59:22.238186 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 300038 end: 360021,  clip, speech, noise:0	48.1157	22.5952
+I1021 12:59:24.885071  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 300038 end: 360021,  clip, speech, noise:0	48.1157	22.5952
+I1021 12:59:28.462618 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 300038 end: 360021,  clip, speech, noise:0	48.1157	22.5952
+I1021 12:59:43.723484 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 240014 end: 300038,  clip, speech, noise:0	53.746	24.5056
+I1021 12:59:48.341773 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 240014 end: 300038,  clip, speech, noise:0	53.8039	24.6739
+I1021 13:00:23.131544 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 360021 end: 420004,  clip, speech, noise:0	35.5737	22.6917
+I1021 13:00:25.773427  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 360021 end: 420004,  clip, speech, noise:0	35.5737	22.6917
+I1021 13:00:29.340966 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 360021 end: 420004,  clip, speech, noise:0	35.5737	22.6917
+I1021 13:00:44.623848 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 300038 end: 360021,  clip, speech, noise:0	47.8881	22.2436
+I1021 13:00:49.255146 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 300038 end: 360021,  clip, speech, noise:0	48.1157	22.5952
+I1021 13:01:24.075939 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 420004 end: 480028,  clip, speech, noise:0	39.9383	23.057
+I1021 13:01:26.713819  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 420004 end: 480028,  clip, speech, noise:0	39.9383	23.057
+I1021 13:01:30.303375 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 420004 end: 480028,  clip, speech, noise:0	39.9383	23.057
+I1021 13:01:45.514204 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 360021 end: 420004,  clip, speech, noise:0	38.346	22.8194
+I1021 13:01:50.150506 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 360021 end: 420004,  clip, speech, noise:0	35.5737	22.6917
+I1021 13:02:24.966296 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 480028 end: 540011,  clip, speech, noise:0	45.2439	23.303
+I1021 13:02:27.614181  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 480028 end: 540011,  clip, speech, noise:0	45.2439	23.303
+I1021 13:02:31.180721 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 480028 end: 540011,  clip, speech, noise:0	45.2439	23.303
+I1021 13:02:46.465605 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 420004 end: 480028,  clip, speech, noise:0	40.9574	23.0723
+I1021 13:02:51.078889 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 420004 end: 480028,  clip, speech, noise:0	39.9383	23.057
+I1021 13:03:25.925703 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 540011 end: 600035,  clip, speech, noise:0	23.8765	23.2495
+I1021 13:03:28.561579  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 540011 end: 600035,  clip, speech, noise:0	23.8765	23.2495
+I1021 13:03:32.142128 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 540011 end: 600035,  clip, speech, noise:0	23.8765	23.2495
+I1021 13:03:47.350957 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 480028 end: 540011,  clip, speech, noise:0	44.0164	23.4863
+I1021 13:03:51.980254 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 480028 end: 540011,  clip, speech, noise:0	45.2439	23.303
+I1021 13:04:26.809053 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 600035 end: 660018,  clip, speech, noise:0	46.9011	23.3937
+I1021 13:04:29.445931  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 600035 end: 660018,  clip, speech, noise:0	46.9011	23.3937
+I1021 13:04:33.025480 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 600035 end: 660018,  clip, speech, noise:0	46.9011	23.3937
+I1021 13:04:48.297354 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 540011 end: 600035,  clip, speech, noise:0	22.118	23.047
+I1021 13:04:52.927652 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 540011 end: 600035,  clip, speech, noise:0	23.8765	23.2495
+I1021 13:05:27.725430 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 660018 end: 720001,  clip, speech, noise:0	49.0126	23.1532
+I1021 13:05:30.368311  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 660018 end: 720001,  clip, speech, noise:0	49.0126	23.1532
+I1021 13:05:33.935852 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 660018 end: 720001,  clip, speech, noise:0	49.0126	23.1532
+I1021 13:05:49.210727 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 600035 end: 660018,  clip, speech, noise:0	46.6392	23.3265
+I1021 13:05:53.822011 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 600035 end: 660018,  clip, speech, noise:0	46.9011	23.3937
+I1021 13:06:28.702847 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 720001 end: 780025,  clip, speech, noise:0	33.702	22.9219
+I1021 13:06:31.339725  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 720001 end: 780025,  clip, speech, noise:0	33.702	22.9219
+I1021 13:06:34.910267 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 720001 end: 780025,  clip, speech, noise:0	33.702	22.9219
+I1021 13:06:50.103085 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 660018 end: 720001,  clip, speech, noise:0	47.9722	23.0795
+I1021 13:06:54.736385 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 660018 end: 720001,  clip, speech, noise:0	49.0126	23.1532
+I1021 13:07:29.575191 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 780025 end: 840008,  clip, speech, noise:0	41.2807	23.2478
+I1021 13:07:32.229081  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 780025 end: 840008,  clip, speech, noise:0	41.2807	23.2478
+I1021 13:07:35.819638 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 780025 end: 840008,  clip, speech, noise:0	41.2807	23.2478
+I1021 13:07:51.082505 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 720001 end: 780025,  clip, speech, noise:0	33.4728	22.8911
+I1021 13:07:55.708801 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 720001 end: 780025,  clip, speech, noise:0	33.702	22.9219
+I1021 13:08:30.539602 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 840008 end: 900032,  clip, speech, noise:0	34.8135	23.6107
+I1021 13:08:33.171474  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 840008 end: 900032,  clip, speech, noise:0	34.8135	23.6107
+I1021 13:08:36.749022 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 840008 end: 900032,  clip, speech, noise:0	34.8135	23.6107
+I1021 13:08:51.964856 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 780025 end: 840008,  clip, speech, noise:0	41.4303	23.3622
+I1021 13:08:56.586148 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 780025 end: 840008,  clip, speech, noise:0	41.2807	23.2478
+I1021 13:09:31.428956 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 900032 end: 960015,  clip, speech, noise:0	45.1578	23.1804
+I1021 13:09:34.060830  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 900032 end: 960015,  clip, speech, noise:0	45.1578	23.1804
+I1021 13:09:37.642381 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 900032 end: 960015,  clip, speech, noise:0	45.1578	23.1804
+I1021 13:09:52.907249 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 840008 end: 900032,  clip, speech, noise:0	35.141	23.6812
+I1021 13:09:57.564566 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 840008 end: 900032,  clip, speech, noise:0	34.8135	23.6107
+I1021 13:10:32.404374 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 960015 end: 1020039,  clip, speech, noise:0	47.9918	22.6968
+I1021 13:10:35.025240  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 960015 end: 1020039,  clip, speech, noise:0	47.9918	22.6968
+I1021 13:10:38.615797 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 960015 end: 1020039,  clip, speech, noise:0	47.9918	22.6968
+I1021 13:10:53.804611 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 900032 end: 960015,  clip, speech, noise:0	45.5932	23.3392
+I1021 13:10:58.454923 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 900032 end: 960015,  clip, speech, noise:0	45.1578	23.1804
+I1021 13:11:33.312743 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1020039 end: 1080022,  clip, speech, noise:0	64.2059	24.6936
+I1021 13:11:35.925603  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1020039 end: 1080022,  clip, speech, noise:0	64.2059	24.6936
+I1021 13:11:39.523165 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1020039 end: 1080022,  clip, speech, noise:0	64.2059	24.6936
+I1021 13:11:54.780030 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 960015 end: 1020039,  clip, speech, noise:0	47.5255	22.3446
+I1021 13:11:59.401319 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 960015 end: 1020039,  clip, speech, noise:0	47.9918	22.6968
+I1021 13:12:34.199097 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1080022 end: 1140005,  clip, speech, noise:0	53.5538	22.6071
+I1021 13:12:36.859992  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1080022 end: 1140005,  clip, speech, noise:0	53.5538	22.6071
+I1021 13:12:40.420527 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1080022 end: 1140005,  clip, speech, noise:0	53.5538	22.6071
+I1021 13:12:55.696403 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1020039 end: 1080022,  clip, speech, noise:0	65.1008	24.5537
+I1021 13:13:00.304685 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1020039 end: 1080022,  clip, speech, noise:0	64.2059	24.6936
+I1021 13:13:35.138491 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1140005 end: 1200029,  clip, speech, noise:0	56.6722	24.1373
+I1021 13:13:37.765359  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1140005 end: 1200029,  clip, speech, noise:0	56.6722	24.1373
+I1021 13:13:41.380934 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1140005 end: 1200029,  clip, speech, noise:0	56.6722	24.1373
+I1021 13:13:56.577754 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1080022 end: 1140005,  clip, speech, noise:0	52.9899	22.5265
+I1021 13:14:01.198045 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1080022 end: 1140005,  clip, speech, noise:0	53.5538	22.6071
+I1021 13:14:36.042855 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1200029 end: 1260012,  clip, speech, noise:0	55.3111	23.6624
+I1021 13:14:38.673728  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1200029 end: 1260012,  clip, speech, noise:0	55.3111	23.6624
+I1021 13:14:42.258280 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1200029 end: 1260012,  clip, speech, noise:0	55.3111	23.6624
+I1021 13:14:57.526151 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1140005 end: 1200029,  clip, speech, noise:0	56.8967	23.4928
+I1021 13:15:02.153446 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1140005 end: 1200029,  clip, speech, noise:0	56.6722	24.1373
+I1021 13:15:36.994254 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1260012 end: 1320036,  clip, speech, noise:0	61.0641	25.2329
+I1021 13:15:39.653148  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1260012 end: 1320036,  clip, speech, noise:0	61.0641	25.2329
+I1021 13:15:43.207679 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1260012 end: 1320036,  clip, speech, noise:0	61.0641	25.2329
+I1021 13:15:58.424515 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1200029 end: 1260012,  clip, speech, noise:0	55.7266	23.6235
+I1021 13:16:03.065819 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1200029 end: 1260012,  clip, speech, noise:0	55.3111	23.6624
+I1021 13:16:37.896620 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1320036 end: 1380019,  clip, speech, noise:0	50.7079	24.28
+I1021 13:16:40.537500  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1320036 end: 1380019,  clip, speech, noise:0	50.7079	24.28
+I1021 13:16:44.117049 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1320036 end: 1380019,  clip, speech, noise:0	50.7079	24.28
+I1021 13:16:59.390925 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1260012 end: 1320036,  clip, speech, noise:0	60.8172	25.0988
+I1021 13:17:03.998205 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1260012 end: 1320036,  clip, speech, noise:0	61.0641	25.2329
+I1021 13:17:38.865032 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1380019 end: 1440002,  clip, speech, noise:0	43.5455	23.063
+I1021 13:17:41.493904  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1380019 end: 1440002,  clip, speech, noise:0	43.5455	23.063
+I1021 13:17:45.067448 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1380019 end: 1440002,  clip, speech, noise:0	43.5455	23.063
+I1021 13:18:00.296293 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1320036 end: 1380019,  clip, speech, noise:0	50.7926	24.1114
+I1021 13:18:04.911579 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1320036 end: 1380019,  clip, speech, noise:0	50.7079	24.28
+I1021 13:18:39.789413 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1440002 end: 1500026,  clip, speech, noise:0	42.7444	21.7804
+I1021 13:18:42.422287  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1440002 end: 1500026,  clip, speech, noise:0	42.7444	21.7804
+I1021 13:18:46.003839 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1440002 end: 1500026,  clip, speech, noise:0	42.7444	21.7804
+I1021 13:19:01.235987 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1380019 end: 1440002,  clip, speech, noise:0	43.901	23.2334
+I1021 13:19:05.867285 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1380019 end: 1440002,  clip, speech, noise:0	43.5455	23.063
+I1021 13:19:40.717099 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1500026 end: 1560009,  clip, speech, noise:0	56.1363	23.3083
+I1021 13:19:43.349974  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1500026 end: 1560009,  clip, speech, noise:0	56.1363	23.3083
+I1021 13:19:46.935528 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1500026 end: 1560009,  clip, speech, noise:0	56.1363	23.3083
+I1021 13:20:02.162369 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1440002 end: 1500026,  clip, speech, noise:0	42.7815	21.8429
+I1021 13:20:06.816684 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1440002 end: 1500026,  clip, speech, noise:0	42.7444	21.7804
+I1021 13:20:41.643482 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1560009 end: 1620033,  clip, speech, noise:0	47.6042	22.0676
+I1021 13:20:44.287364  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1560009 end: 1620033,  clip, speech, noise:0	47.6042	22.0676
+I1021 13:20:47.871917 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1560009 end: 1620033,  clip, speech, noise:0	47.6042	22.0676
+I1021 13:21:03.101761 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1500026 end: 1560009,  clip, speech, noise:0	55.6439	23.2744
+I1021 13:21:07.728055 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1500026 end: 1560009,  clip, speech, noise:0	56.1363	23.3083
+I1021 13:21:42.560858 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1620033 end: 1680016,  clip, speech, noise:0	64.4352	24.3896
+I1021 13:21:45.200737  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1620033 end: 1680016,  clip, speech, noise:0	64.4352	24.3896
+I1021 13:21:48.773282 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1620033 end: 1680016,  clip, speech, noise:0	64.4352	24.3896
+I1021 13:22:04.031146 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1560009 end: 1620033,  clip, speech, noise:0	47.9581	22.3973
+I1021 13:22:08.650434 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1560009 end: 1620033,  clip, speech, noise:0	47.6042	22.0676
+I1021 13:22:43.494245 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1680016 end: 1740040,  clip, speech, noise:0	49.8333	22.3276
+I1021 13:22:46.131122  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1680016 end: 1740040,  clip, speech, noise:0	49.8333	22.3276
+I1021 13:22:49.706668 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1680016 end: 1740040,  clip, speech, noise:0	49.8333	22.3276
+I1021 13:23:04.938514 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1620033 end: 1680016,  clip, speech, noise:0	64.1805	24.3625
+I1021 13:23:09.578819 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1620033 end: 1680016,  clip, speech, noise:0	64.4352	24.3896
+I1021 13:23:44.393607 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1740040 end: 1800023,  clip, speech, noise:0	41.1748	22.2028
+I1021 13:23:47.042493  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1740040 end: 1800023,  clip, speech, noise:0	41.1748	22.2028
+I1021 13:23:50.620041 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1740040 end: 1800023,  clip, speech, noise:0	41.1748	22.2028
+I1021 13:24:05.873903 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1680016 end: 1740040,  clip, speech, noise:0	49.6615	22.1876
+I1021 13:24:10.503199 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1680016 end: 1740040,  clip, speech, noise:0	49.8333	22.3276
+I1021 13:24:45.282963 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1800023 end: 1860006,  clip, speech, noise:0	39.0593	21.9152
+I1021 13:24:47.924844  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1800023 end: 1860006,  clip, speech, noise:0	39.0593	21.9152
+I1021 13:24:51.507396 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1800023 end: 1860006,  clip, speech, noise:0	39.0593	21.9152
+I1021 13:25:06.785274 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1740040 end: 1800023,  clip, speech, noise:0	41.2355	22.2361
+I1021 13:25:11.408566 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1740040 end: 1800023,  clip, speech, noise:0	41.1748	22.2028
+I1021 13:25:46.247372 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1860006 end: 1920030,  clip, speech, noise:0	64.8041	30.0915
+I1021 13:25:48.870240  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1860006 end: 1920030,  clip, speech, noise:0	64.8041	30.0915
+I1021 13:25:52.458796 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1860006 end: 1920030,  clip, speech, noise:0	64.8041	30.0915
+I1021 13:26:07.670627 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1800023 end: 1860006,  clip, speech, noise:0	39.126	22.0776
+I1021 13:26:12.314934 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1800023 end: 1860006,  clip, speech, noise:0	39.0593	21.9152
+I1021 13:26:47.167752 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1920030 end: 1980013,  clip, speech, noise:0	61.5031	24.57
+I1021 13:26:49.770604  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1920030 end: 1980013,  clip, speech, noise:0	61.5031	24.57
+I1021 13:26:53.349153 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1920030 end: 1980013,  clip, speech, noise:0	61.5031	24.57
+I1021 13:27:08.618024 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1860006 end: 1920030,  clip, speech, noise:0	65.2321	29.6103
+I1021 13:27:13.264333 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1860006 end: 1920030,  clip, speech, noise:0	64.8041	30.0915
+I1021 13:27:48.093133 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1980013 end: 2040037,  clip, speech, noise:0	57.9095	24.4122
+I1021 13:27:50.723006  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1980013 end: 2040037,  clip, speech, noise:0	57.9095	24.4122
+I1021 13:27:54.303555 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1980013 end: 2040037,  clip, speech, noise:0	57.9095	24.4122
+I1021 13:28:09.511384 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1920030 end: 1980013,  clip, speech, noise:0	61.4507	24.3931
+I1021 13:28:14.139679 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1920030 end: 1980013,  clip, speech, noise:0	61.5031	24.57
+I1021 13:28:48.984489 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 2040037 end: 2100020,  clip, speech, noise:0	42.8622	23.2095
+I1021 13:28:51.620367  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 2040037 end: 2100020,  clip, speech, noise:0	42.8622	23.2095
+I1021 13:28:55.213925 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 2040037 end: 2100020,  clip, speech, noise:0	42.8622	23.2095
+I1021 13:29:10.469789 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1980013 end: 2040037,  clip, speech, noise:0	58.1546	24.8065
+I1021 13:29:15.125103 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 1980013 end: 2040037,  clip, speech, noise:0	57.9095	24.4122
+I1021 13:29:49.887856 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 2100020 end: 2160003,  clip, speech, noise:0	43.7719	22.9018
+I1021 13:29:52.510723  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 2100020 end: 2160003,  clip, speech, noise:0	43.7719	22.9018
+I1021 13:29:56.118291 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 2100020 end: 2160003,  clip, speech, noise:0	43.7719	22.9018
+I1021 13:30:11.371153 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 2040037 end: 2100020,  clip, speech, noise:0	43.0865	22.9725
+I1021 13:30:16.027468 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 2040037 end: 2100020,  clip, speech, noise:0	42.8622	23.2095
+I1021 13:30:49.661417 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 2160003 end: 2218879,  clip, speech, noise:0	51.1557	22.1552
+I1021 13:30:49.661417 17780 getrtspurldata.cpp:495] the end flag is: E_PLAY_OVER
+I1021 13:30:49.662417 17780 getrtspurldata.cpp:506] end  process voice check...
+I1021 13:30:49.667421 17780 getrtspurldata.cpp:515] rtsp stop success!thread_id[17780]
+I1021 13:30:49.667421 17780 getrtspurldata.cpp:543] Leave GetRtspUrlData::asr_voice_quality_detection process...hCheckClient[0]=00000000
+I1021 13:30:49.668433 17780 taskdispatch.cpp:97] Check thread received request from the 0's client whose thread:17780 data[{
+	"request_type":"audio_state_checker",
+	"request_value":{
+		"duration":10000000,
+		"media_url":"rtsp://192.168.2.168/trials/normal.mp4",
+		"start_time":0,
+		"task_id":"a8406e89c61249beba8f4ebe322e78f1",
+		"value_post_time":60000
+	}
+}]
+I1021 13:30:49.669423 17780 taskdispatch.cpp:175] ProcessNoiseCheck req_type £ºE_BIZ_TYPE_CHECK
+I1021 13:30:49.669423 17780 taskdispatch.cpp:224] recv rtsp url: rtsp://192.168.2.168/trials/normal.mp4
+I1021 13:30:49.670423 17780 getrtspurldata.cpp:241] Enter GetRtspUrlData::asr_voice_quality_detection process...
+I1021 13:30:49.740473 17780 getrtspurldata.cpp:301] voice check module:start rtsp finish,handle:[09498E58]
+I1021 13:30:49.740473 17780 getrtspurldata.cpp:323] begin process voice check...
+I1021 13:30:52.299295  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 2160003 end: 2218879,  clip, speech, noise:0	51.1557	22.1552
+I1021 13:30:52.299295  2616 getrtspurldata.cpp:495] the end flag is: E_PLAY_OVER
+I1021 13:30:52.299295  2616 getrtspurldata.cpp:506] end  process voice check...
+I1021 13:30:52.332319  2616 getrtspurldata.cpp:515] rtsp stop success!thread_id[2616]
+I1021 13:30:52.332319  2616 getrtspurldata.cpp:543] Leave GetRtspUrlData::asr_voice_quality_detection process...hCheckClient[1]=00000000
+I1021 13:30:52.333320  2616 taskdispatch.cpp:97] Check thread received request from the 1's client whose thread:2616 data[{
+	"request_type":"audio_state_checker",
+	"request_value":{
+		"duration":10000000,
+		"media_url":"rtsp://192.168.2.168/trials/normal.mp4",
+		"start_time":0,
+		"task_id":"48fc190239b64bea9065655de2d4dc41",
+		"value_post_time":60000
+	}
+}]
+I1021 13:30:52.333320  2616 taskdispatch.cpp:175] ProcessNoiseCheck req_type £ºE_BIZ_TYPE_CHECK
+I1021 13:30:52.334321  2616 taskdispatch.cpp:224] recv rtsp url: rtsp://192.168.2.168/trials/normal.mp4
+I1021 13:30:52.334321  2616 getrtspurldata.cpp:241] Enter GetRtspUrlData::asr_voice_quality_detection process...
+I1021 13:30:52.398365  2616 getrtspurldata.cpp:301] voice check module:start rtsp finish,handle:[0957D2E0]
+I1021 13:30:52.398365  2616 getrtspurldata.cpp:323] begin process voice check...
+I1021 13:30:55.876842 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 2160003 end: 2218879,  clip, speech, noise:0	51.1557	22.1552
+I1021 13:30:55.876842 20148 getrtspurldata.cpp:495] the end flag is: E_PLAY_OVER
+I1021 13:30:55.876842 20148 getrtspurldata.cpp:506] end  process voice check...
+I1021 13:30:55.894855 20148 getrtspurldata.cpp:515] rtsp stop success!thread_id[20148]
+I1021 13:30:55.894855 20148 getrtspurldata.cpp:543] Leave GetRtspUrlData::asr_voice_quality_detection process...hCheckClient[2]=00000000
+I1021 13:30:55.895859 20148 taskdispatch.cpp:97] Check thread received request from the 2's client whose thread:20148 data[{
+	"request_type":"audio_state_checker",
+	"request_value":{
+		"duration":10000000,
+		"media_url":"rtsp://192.168.2.168/trials/normal.mp4",
+		"start_time":0,
+		"task_id":"8271821deca642a18552b61a5e6d2b92",
+		"value_post_time":60000
+	}
+}]
+I1021 13:30:55.896857 20148 taskdispatch.cpp:175] ProcessNoiseCheck req_type £ºE_BIZ_TYPE_CHECK
+I1021 13:30:55.896857 20148 taskdispatch.cpp:224] recv rtsp url: rtsp://192.168.2.168/trials/normal.mp4
+I1021 13:30:55.896857 20148 getrtspurldata.cpp:241] Enter GetRtspUrlData::asr_voice_quality_detection process...
+I1021 13:30:55.973912 20148 getrtspurldata.cpp:301] voice check module:start rtsp finish,handle:[0E9598E8]
+I1021 13:30:55.973912 20148 getrtspurldata.cpp:323] begin process voice check...
+I1021 13:31:12.259508 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 2100020 end: 2160003,  clip, speech, noise:0	43.7636	22.797
+I1021 13:31:16.879797 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 2100020 end: 2160003,  clip, speech, noise:0	43.7719	22.9018
+I1021 13:31:50.230545 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 43 end: 60024,  clip, speech, noise:0	21.4778	22.9238
+I1021 13:31:52.930467  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 43 end: 60024,  clip, speech, noise:0	24.0513	22.8085
+I1021 13:31:56.484999 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 43 end: 60024,  clip, speech, noise:0	21.4778	22.9238
+I1021 13:32:12.037072 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 2160003 end: 2218879,  clip, speech, noise:0	51.0873	22.8577
+I1021 13:32:12.037072 35448 getrtspurldata.cpp:495] the end flag is: E_PLAY_OVER
+I1021 13:32:12.037072 35448 getrtspurldata.cpp:506] end  process voice check...
+I1021 13:32:12.050082 35448 getrtspurldata.cpp:515] rtsp stop success!thread_id[35448]
+I1021 13:32:12.050082 35448 getrtspurldata.cpp:543] Leave GetRtspUrlData::asr_voice_quality_detection process...hCheckClient[3]=00000000
+I1021 13:32:12.051082 35448 taskdispatch.cpp:97] Check thread received request from the 3's client whose thread:35448 data[{
+	"request_type":"audio_state_checker",
+	"request_value":{
+		"duration":10000000,
+		"media_url":"rtsp://192.168.2.168/trials/normal.mp4",
+		"start_time":0,
+		"task_id":"0315c1095ea3464b840594ef0ae5eddb",
+		"value_post_time":60000
+	}
+}]
+I1021 13:32:12.052083 35448 taskdispatch.cpp:175] ProcessNoiseCheck req_type £ºE_BIZ_TYPE_CHECK
+I1021 13:32:12.052083 35448 taskdispatch.cpp:224] recv rtsp url: rtsp://192.168.2.168/trials/normal.mp4
+I1021 13:32:12.052083 35448 getrtspurldata.cpp:241] Enter GetRtspUrlData::asr_voice_quality_detection process...
+I1021 13:32:12.155156 35448 getrtspurldata.cpp:301] voice check module:start rtsp finish,handle:[0EA1DD18]
+I1021 13:32:12.155156 35448 getrtspurldata.cpp:323] begin process voice check...
+I1021 13:32:16.663365 24720 getrtspurldata.cpp:488] thread_no: [4]  start: 2160003 end: 2218879,  clip, speech, noise:0	51.1557	22.1552
+I1021 13:32:16.663365 24720 getrtspurldata.cpp:495] the end flag is: E_PLAY_OVER
+I1021 13:32:16.663365 24720 getrtspurldata.cpp:506] end  process voice check...
+I1021 13:32:16.689384 24720 getrtspurldata.cpp:515] rtsp stop success!thread_id[24720]
+I1021 13:32:16.689384 24720 getrtspurldata.cpp:543] Leave GetRtspUrlData::asr_voice_quality_detection process...hCheckClient[4]=00000000
+I1021 13:32:51.153925 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 60024 end: 120007,  clip, speech, noise:0	52.3035	25.1001
+I1021 13:32:53.827829  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 60024 end: 120007,  clip, speech, noise:0	51.6475	24.658
+I1021 13:32:57.372352 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 60024 end: 120007,  clip, speech, noise:0	52.3035	25.1001
+I1021 13:33:12.645228 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 43 end: 60024,  clip, speech, noise:0	21.4778	22.9238
+I1021 13:33:52.075304 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 120007 end: 180031,  clip, speech, noise:0	45.0365	22.6053
+I1021 13:33:54.766219  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 120007 end: 180031,  clip, speech, noise:0	44.7581	22.674
+I1021 13:33:58.308148 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 120007 end: 180031,  clip, speech, noise:0	45.0365	22.6053
+I1021 13:34:13.559134 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 60024 end: 120007,  clip, speech, noise:0	52.3035	25.1001
+I1021 13:34:52.985208 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 180031 end: 240014,  clip, speech, noise:0	50.4733	23.9736
+I1021 13:34:55.669118  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 180031 end: 240014,  clip, speech, noise:0	49.4553	24.8314
+I1021 13:34:59.212641 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 180031 end: 240014,  clip, speech, noise:0	50.4733	23.9736
+I1021 13:35:14.489351 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 120007 end: 180031,  clip, speech, noise:0	45.0365	22.6053
+I1021 13:35:53.909771 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 240014 end: 300038,  clip, speech, noise:0	54.0599	24.5153
+I1021 13:35:56.601688  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 240014 end: 300038,  clip, speech, noise:0	54.0939	25.1732
+I1021 13:36:00.151216 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 240014 end: 300038,  clip, speech, noise:0	54.0599	24.5153
+I1021 13:36:15.395071 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 180031 end: 240014,  clip, speech, noise:0	50.4733	23.9736
+I1021 13:36:54.822151 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 300038 end: 360021,  clip, speech, noise:0	47.8763	22.7397
+I1021 13:36:57.513068  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 300038 end: 360021,  clip, speech, noise:0	48.1966	22.5428
+I1021 13:37:01.051587 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 300038 end: 360021,  clip, speech, noise:0	47.8763	22.7397
+I1021 13:37:16.325462 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 240014 end: 300038,  clip, speech, noise:0	54.0599	24.5153
+I1021 13:37:55.709506 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 360021 end: 420004,  clip, speech, noise:0	38.7173	22.5806
+I1021 13:37:58.389415  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 360021 end: 420004,  clip, speech, noise:0	38.8705	23.0052
+I1021 13:38:01.951951 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 360021 end: 420004,  clip, speech, noise:0	38.7173	22.5806
+I1021 13:38:17.248842 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 300038 end: 360021,  clip, speech, noise:0	47.8763	22.7397
+I1021 13:38:56.665910 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 420004 end: 480028,  clip, speech, noise:0	41.6094	23.1419
+I1021 13:38:59.359827  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 420004 end: 480028,  clip, speech, noise:0	41.4669	23.2109
+I1021 13:39:02.911356 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 420004 end: 480028,  clip, speech, noise:0	41.6094	23.1419
+I1021 13:39:18.126190 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 360021 end: 420004,  clip, speech, noise:0	38.7173	22.5806
+I1021 13:39:57.558267 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 480028 end: 540011,  clip, speech, noise:0	46.0814	23.721
+I1021 13:40:00.242178  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 480028 end: 540011,  clip, speech, noise:0	44.9716	23.8277
+I1021 13:40:03.793707 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 480028 end: 540011,  clip, speech, noise:0	46.0814	23.721
+I1021 13:40:19.087597 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 420004 end: 480028,  clip, speech, noise:0	41.6094	23.1419
+I1021 13:40:58.511669 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 540011 end: 600035,  clip, speech, noise:0	21.6289	22.9381
+I1021 13:41:01.197582  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 540011 end: 600035,  clip, speech, noise:0	23.3709	23.0952
+I1021 13:41:04.747108 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 540011 end: 600035,  clip, speech, noise:0	21.6289	22.9381
+I1021 13:41:19.972950 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 480028 end: 540011,  clip, speech, noise:0	46.0814	23.721
+I1021 13:41:59.397022 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 600035 end: 660018,  clip, speech, noise:0	46.9368	23.6292
+I1021 13:42:02.080932  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 600035 end: 660018,  clip, speech, noise:0	47.4116	23.3286
+I1021 13:42:05.633462 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 600035 end: 660018,  clip, speech, noise:0	46.9368	23.6292
+I1021 13:42:20.929354 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 540011 end: 600035,  clip, speech, noise:0	21.6289	22.9381
+I1021 13:43:00.307392 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 660018 end: 720001,  clip, speech, noise:0	48.3217	23.2519
+I1021 13:43:02.988301  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 660018 end: 720001,  clip, speech, noise:0	48.0345	22.7608
+I1021 13:43:06.547837 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 660018 end: 720001,  clip, speech, noise:0	48.3217	23.2519
+I1021 13:43:21.818709 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 600035 end: 660018,  clip, speech, noise:0	46.9368	23.6292
+I1021 13:44:01.287813 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 720001 end: 780025,  clip, speech, noise:0	33.9212	23.0925
+I1021 13:44:03.959715  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 720001 end: 780025,  clip, speech, noise:0	33.8483	23.1444
+I1021 13:44:07.522253 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 720001 end: 780025,  clip, speech, noise:0	33.9212	23.0925
+I1021 13:44:22.715070 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 660018 end: 720001,  clip, speech, noise:0	48.3217	23.2519
+I1021 13:45:02.168164 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 780025 end: 840008,  clip, speech, noise:0	41.2853	23.2026
+I1021 13:45:04.859078  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 780025 end: 840008,  clip, speech, noise:0	41.9537	23.2097
+I1021 13:45:08.410607 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 780025 end: 840008,  clip, speech, noise:0	41.2853	23.2026
+I1021 13:45:23.697492 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 720001 end: 780025,  clip, speech, noise:0	33.9212	23.0925
+I1021 13:46:03.125567 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 840008 end: 900032,  clip, speech, noise:0	34.4113	23.677
+I1021 13:46:05.806476  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 840008 end: 900032,  clip, speech, noise:0	34.2193	23.6072
+I1021 13:46:09.357005 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 840008 end: 900032,  clip, speech, noise:0	34.4113	23.677
+I1021 13:46:24.590852 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 780025 end: 840008,  clip, speech, noise:0	41.2853	23.2026
+I1021 13:47:04.009919 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 900032 end: 960015,  clip, speech, noise:0	45.4145	23.104
+I1021 13:47:06.700836  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 900032 end: 960015,  clip, speech, noise:0	45.5545	23.2998
+I1021 13:47:10.243358 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 900032 end: 960015,  clip, speech, noise:0	45.4145	23.104
+I1021 13:47:25.544253 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 840008 end: 900032,  clip, speech, noise:0	34.4113	23.677
+I1021 13:48:04.981334 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 960015 end: 1020039,  clip, speech, noise:0	47.4222	22.4744
+I1021 13:48:07.670248  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 960015 end: 1020039,  clip, speech, noise:0	47.9264	22.6012
+I1021 13:48:11.222779 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 960015 end: 1020039,  clip, speech, noise:0	47.4222	22.4744
+I1021 13:48:26.426604 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 900032 end: 960015,  clip, speech, noise:0	45.4145	23.104
+I1021 13:49:05.873692 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1020039 end: 1080022,  clip, speech, noise:0	63.7724	24.5845
+I1021 13:49:08.564607  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1020039 end: 1080022,  clip, speech, noise:0	64.0045	24.3714
+I1021 13:49:12.112134 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1020039 end: 1080022,  clip, speech, noise:0	63.7724	24.5845
+I1021 13:49:27.407024 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 960015 end: 1020039,  clip, speech, noise:0	47.4222	22.4744
+I1021 13:50:06.792068 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1080022 end: 1140005,  clip, speech, noise:0	54.3464	22.6517
+I1021 13:50:09.473978  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1080022 end: 1140005,  clip, speech, noise:0	52.8848	22.8586
+I1021 13:50:13.011497 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1080022 end: 1140005,  clip, speech, noise:0	54.3464	22.6517
+I1021 13:50:28.293378 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1020039 end: 1080022,  clip, speech, noise:0	63.7724	24.5845
+I1021 13:51:07.722453 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1140005 end: 1200029,  clip, speech, noise:0	56.8462	23.417
+I1021 13:51:10.395356  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1140005 end: 1200029,  clip, speech, noise:0	56.178	24.3924
+I1021 13:51:13.956892 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1140005 end: 1200029,  clip, speech, noise:0	56.8462	23.417
+I1021 13:51:29.207752 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1080022 end: 1140005,  clip, speech, noise:0	54.3464	22.6517
+I1021 13:52:08.625819 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1200029 end: 1260012,  clip, speech, noise:0	55.5003	23.1626
+I1021 13:52:11.312732  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1200029 end: 1260012,  clip, speech, noise:0	55.8918	24.3604
+I1021 13:52:14.864261 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1200029 end: 1260012,  clip, speech, noise:0	55.5003	23.1626
+I1021 13:52:30.130131 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1140005 end: 1200029,  clip, speech, noise:0	56.8462	23.417
+I1021 13:53:09.576218 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1260012 end: 1320036,  clip, speech, noise:0	61.4313	25.4622
+I1021 13:53:12.267134  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1260012 end: 1320036,  clip, speech, noise:0	61.1364	24.9027
+I1021 13:53:15.814661 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1260012 end: 1320036,  clip, speech, noise:0	61.4313	25.4622
+I1021 13:53:31.046506 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1200029 end: 1260012,  clip, speech, noise:0	55.5003	23.1626
+I1021 13:54:10.493594 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1320036 end: 1380019,  clip, speech, noise:0	51.429	23.873
+I1021 13:54:13.179507  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1320036 end: 1380019,  clip, speech, noise:0	51.2308	24.1045
+I1021 13:54:16.728034 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1320036 end: 1380019,  clip, speech, noise:0	51.429	23.873
+I1021 13:54:31.987900 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1260012 end: 1320036,  clip, speech, noise:0	61.4313	25.4622
+I1021 13:55:11.439991 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1380019 end: 1440002,  clip, speech, noise:0	43.6349	22.9481
+I1021 13:55:14.121901  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1380019 end: 1440002,  clip, speech, noise:0	43.3202	23.0195
+I1021 13:55:17.668426 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1380019 end: 1440002,  clip, speech, noise:0	43.6349	22.9481
+I1021 13:55:32.903275 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1320036 end: 1380019,  clip, speech, noise:0	51.429	23.873
+I1021 13:56:12.375380 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1440002 end: 1500026,  clip, speech, noise:0	42.703	21.9196
+I1021 13:56:15.070298  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1440002 end: 1500026,  clip, speech, noise:0	43.1444	21.8738
+I1021 13:56:18.612821 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1440002 end: 1500026,  clip, speech, noise:0	42.703	21.9196
+I1021 13:56:33.863680 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1380019 end: 1440002,  clip, speech, noise:0	43.6349	22.9481
+I1021 13:57:13.305764 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1500026 end: 1560009,  clip, speech, noise:0	56.0678	24.0092
+I1021 13:57:15.991677  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1500026 end: 1560009,  clip, speech, noise:0	56.8337	23.3132
+I1021 13:57:19.533200 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1500026 end: 1560009,  clip, speech, noise:0	56.0678	24.0092
+I1021 13:57:34.789062 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1440002 end: 1500026,  clip, speech, noise:0	42.703	21.9196
+I1021 13:58:14.244155 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1560009 end: 1620033,  clip, speech, noise:0	47.0702	22.3477
+I1021 13:58:16.924063  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1560009 end: 1620033,  clip, speech, noise:0	46.6137	22.2798
+I1021 13:58:20.467586 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1560009 end: 1620033,  clip, speech, noise:0	47.0702	22.3477
+I1021 13:58:35.731262 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1500026 end: 1560009,  clip, speech, noise:0	56.0678	24.0092
+I1021 13:59:15.154466 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1620033 end: 1680016,  clip, speech, noise:0	63.8066	24.4926
+I1021 13:59:17.839378  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1620033 end: 1680016,  clip, speech, noise:0	63.927	24.4177
+I1021 13:59:21.380900 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1620033 end: 1680016,  clip, speech, noise:0	63.8066	24.4926
+I1021 13:59:36.659780 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1560009 end: 1620033,  clip, speech, noise:0	47.0702	22.3477
+I1021 14:00:16.081850 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1680016 end: 1740040,  clip, speech, noise:0	49.3954	22.0796
+I1021 14:00:18.760757  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1680016 end: 1740040,  clip, speech, noise:0	48.8823	22.2774
+I1021 14:00:22.312285 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1680016 end: 1740040,  clip, speech, noise:0	49.3954	22.0796
+I1021 14:00:37.572151 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1620033 end: 1680016,  clip, speech, noise:0	63.8066	24.4926
+I1021 14:01:16.994221 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1740040 end: 1800023,  clip, speech, noise:0	41.4568	22.0356
+I1021 14:01:19.663122  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1740040 end: 1800023,  clip, speech, noise:0	40.9606	22.0029
+I1021 14:01:23.218653 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1740040 end: 1800023,  clip, speech, noise:0	41.4568	22.0356
+I1021 14:01:38.500535 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1680016 end: 1740040,  clip, speech, noise:0	49.3954	22.0796
+I1021 14:02:17.881577 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1800023 end: 1860006,  clip, speech, noise:0	39.1203	21.9184
+I1021 14:02:20.565487  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1800023 end: 1860006,  clip, speech, noise:0	39.553	21.9608
+I1021 14:02:24.115015 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1800023 end: 1860006,  clip, speech, noise:0	39.1203	21.9184
+I1021 14:02:39.400899 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1740040 end: 1800023,  clip, speech, noise:0	41.4568	22.0356
+I1021 14:03:18.829974 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1860006 end: 1920030,  clip, speech, noise:0	64.8804	29.2084
+I1021 14:03:21.507880  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1860006 end: 1920030,  clip, speech, noise:0	65.168	30.5307
+I1021 14:03:25.075422 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1860006 end: 1920030,  clip, speech, noise:0	64.8804	29.2084
+I1021 14:03:40.290254 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1800023 end: 1860006,  clip, speech, noise:0	39.1203	21.9184
+I1021 14:04:19.716328 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1920030 end: 1980013,  clip, speech, noise:0	61.1966	24.8607
+I1021 14:04:22.397238  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1920030 end: 1980013,  clip, speech, noise:0	60.9213	24.5451
+I1021 14:04:25.949766 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1920030 end: 1980013,  clip, speech, noise:0	61.1966	24.8607
+I1021 14:04:41.243656 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1860006 end: 1920030,  clip, speech, noise:0	64.8804	29.2084
+I1021 14:05:20.671730 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1980013 end: 2040037,  clip, speech, noise:0	58.4575	24.1602
+I1021 14:05:23.361646  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 1980013 end: 2040037,  clip, speech, noise:0	57.8082	24.4939
+I1021 14:05:26.910172 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 1980013 end: 2040037,  clip, speech, noise:0	58.4575	24.1602
+I1021 14:05:42.137014 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1920030 end: 1980013,  clip, speech, noise:0	61.1966	24.8607
+I1021 14:06:21.585103 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 2040037 end: 2100020,  clip, speech, noise:0	42.8502	23.3472
+I1021 14:06:24.262011  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 2040037 end: 2100020,  clip, speech, noise:0	42.8245	23.3554
+I1021 14:06:27.810537 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 2040037 end: 2100020,  clip, speech, noise:0	42.8502	23.3472
+I1021 14:06:43.089416 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 1980013 end: 2040037,  clip, speech, noise:0	58.4575	24.1602
+I1021 14:07:22.469456 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 2100020 end: 2160003,  clip, speech, noise:0	43.6047	22.9281
+I1021 14:07:25.156369  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 2100020 end: 2160003,  clip, speech, noise:0	43.1576	22.709
+I1021 14:07:28.704896 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 2100020 end: 2160003,  clip, speech, noise:0	43.6047	22.9281
+I1021 14:07:43.990780 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 2040037 end: 2100020,  clip, speech, noise:0	42.8502	23.3472
+I1021 14:08:22.209995 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 2160003 end: 2218838,  clip, speech, noise:0	51.3464	22.9127
+I1021 14:08:22.210994 17780 getrtspurldata.cpp:495] the end flag is: E_PLAY_OVER
+I1021 14:08:22.210994 17780 getrtspurldata.cpp:506] end  process voice check...
+I1021 14:08:22.222002 17780 getrtspurldata.cpp:515] rtsp stop success!thread_id[17780]
+I1021 14:08:22.222002 17780 getrtspurldata.cpp:543] Leave GetRtspUrlData::asr_voice_quality_detection process...hCheckClient[0]=00000000
+I1021 14:08:22.224004 17780 taskdispatch.cpp:97] Check thread received request from the 0's client whose thread:17780 data[{
+	"request_type":"audio_state_checker",
+	"request_value":{
+		"duration":10000000,
+		"media_url":"rtsp://192.168.2.168/trials/normal.mp4",
+		"start_time":0,
+		"task_id":"2dbbe4f32dfc490eba453c4fd5cbd207",
+		"value_post_time":60000
+	}
+}]
+I1021 14:08:22.224004 17780 taskdispatch.cpp:175] ProcessNoiseCheck req_type £ºE_BIZ_TYPE_CHECK
+I1021 14:08:22.224004 17780 taskdispatch.cpp:224] recv rtsp url: rtsp://192.168.2.168/trials/normal.mp4
+I1021 14:08:22.224004 17780 getrtspurldata.cpp:241] Enter GetRtspUrlData::asr_voice_quality_detection process...
+I1021 14:08:22.290050 17780 getrtspurldata.cpp:301] voice check module:start rtsp finish,handle:[039CBD58]
+I1021 14:08:22.290050 17780 getrtspurldata.cpp:323] begin process voice check...
+I1021 14:08:24.895906  2616 getrtspurldata.cpp:488] thread_no: [1]  start: 2160003 end: 2218838,  clip, speech, noise:0	51.0481	22.7824
+I1021 14:08:24.895906  2616 getrtspurldata.cpp:495] the end flag is: E_PLAY_OVER
+I1021 14:08:24.895906  2616 getrtspurldata.cpp:506] end  process voice check...
+I1021 14:08:24.902911  2616 getrtspurldata.cpp:515] rtsp stop success!thread_id[2616]
+I1021 14:08:24.902911  2616 getrtspurldata.cpp:543] Leave GetRtspUrlData::asr_voice_quality_detection process...hCheckClient[1]=00000000
+I1021 14:08:28.444433 20148 getrtspurldata.cpp:488] thread_no: [2]  start: 2160003 end: 2218838,  clip, speech, noise:0	51.3464	22.9127
+I1021 14:08:28.444433 20148 getrtspurldata.cpp:495] the end flag is: E_PLAY_OVER
+I1021 14:08:28.444433 20148 getrtspurldata.cpp:506] end  process voice check...
+I1021 14:08:28.447437 20148 getrtspurldata.cpp:515] rtsp stop success!thread_id[20148]
+I1021 14:08:28.447437 20148 getrtspurldata.cpp:543] Leave GetRtspUrlData::asr_voice_quality_detection process...hCheckClient[2]=00000000
+I1021 14:08:44.887141 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 2100020 end: 2160003,  clip, speech, noise:0	43.6047	22.9281
+I1021 14:09:22.746165 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 43 end: 60024,  clip, speech, noise:0	24.1603	22.8774
+I1021 14:09:44.621742 35448 getrtspurldata.cpp:488] thread_no: [3]  start: 2160003 end: 2218838,  clip, speech, noise:0	51.3464	22.9127
+I1021 14:09:44.621742 35448 getrtspurldata.cpp:495] the end flag is: E_PLAY_OVER
+I1021 14:09:44.621742 35448 getrtspurldata.cpp:506] end  process voice check...
+I1021 14:09:44.629747 35448 getrtspurldata.cpp:515] rtsp stop success!thread_id[35448]
+I1021 14:09:44.629747 35448 getrtspurldata.cpp:543] Leave GetRtspUrlData::asr_voice_quality_detection process...hCheckClient[3]=00000000
+I1021 14:10:23.661540 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 60024 end: 120007,  clip, speech, noise:0	51.5327	24.7983
+I1021 14:11:24.589931 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 120007 end: 180031,  clip, speech, noise:0	45.0451	22.8192
+I1021 14:12:25.501296 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 180031 end: 240014,  clip, speech, noise:0	49.597	23.8059
+I1021 14:15:59.184453 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 240014 end: 300038,  clip, speech, noise:0	53.746	24.5057
+I1021 14:15:59.401602 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 300038 end: 360021,  clip, speech, noise:0	47.8882	22.2437
+I1021 14:15:59.616755 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 360021 end: 420004,  clip, speech, noise:0	38.346	22.8194
+I1021 14:16:29.189812 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 420004 end: 480028,  clip, speech, noise:0	40.9574	23.0722
+I1021 14:17:30.081169 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 480028 end: 540011,  clip, speech, noise:0	44.0163	23.4864
+I1021 14:18:31.039575 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 540011 end: 600035,  clip, speech, noise:0	22.1182	23.0468
+I1021 14:19:31.914921 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 600035 end: 660018,  clip, speech, noise:0	46.6392	23.3265
+I1021 14:20:32.830296 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 660018 end: 720001,  clip, speech, noise:0	47.9722	23.0794
+I1021 14:21:33.800709 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 720001 end: 780025,  clip, speech, noise:0	33.4727	22.891
+I1021 14:22:34.686063 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 780025 end: 840008,  clip, speech, noise:0	41.4303	23.3621
+I1021 14:23:35.646468 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 840008 end: 900032,  clip, speech, noise:0	35.1412	23.6813
+I1021 14:24:36.530820 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 900032 end: 960015,  clip, speech, noise:0	45.5933	23.3391
+I1021 14:25:37.514243 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 960015 end: 1020039,  clip, speech, noise:0	47.5256	22.3447
+I1021 14:26:38.386586 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1020039 end: 1080022,  clip, speech, noise:0	65.1008	24.5537
+I1021 14:27:39.304097 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1080022 end: 1140005,  clip, speech, noise:0	52.9898	22.5265
+I1021 14:28:40.236485 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1140005 end: 1200029,  clip, speech, noise:0	56.8967	23.4928
+I1021 14:29:41.151298 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1200029 end: 1260012,  clip, speech, noise:0	55.7266	23.6235
+I1021 14:30:42.102355 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1260012 end: 1320036,  clip, speech, noise:0	60.8171	25.0988
+I1021 14:31:43.012725 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1320036 end: 1380019,  clip, speech, noise:0	50.7926	24.1115
+I1021 14:32:43.965126 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1380019 end: 1440002,  clip, speech, noise:0	43.901	23.2333
+I1021 14:33:44.897512 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1440002 end: 1500026,  clip, speech, noise:0	42.7815	21.8428
+I1021 14:34:45.824887 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1500026 end: 1560009,  clip, speech, noise:0	55.6439	23.2743
+I1021 14:35:46.764277 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1560009 end: 1620033,  clip, speech, noise:0	47.958	22.3972
+I1021 14:36:47.661639 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1620033 end: 1680016,  clip, speech, noise:0	64.1805	24.3624
+I1021 14:37:48.595026 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1680016 end: 1740040,  clip, speech, noise:0	49.6615	22.1876
+I1021 14:38:49.502394 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1740040 end: 1800023,  clip, speech, noise:0	41.2356	22.236
+I1021 14:39:50.400758 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1800023 end: 1860006,  clip, speech, noise:0	39.1262	22.0777
+I1021 14:40:51.346153 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1860006 end: 1920030,  clip, speech, noise:0	65.2322	29.6102
+I1021 14:41:52.241513 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1920030 end: 1980013,  clip, speech, noise:0	61.4507	24.3932
+I1021 14:42:53.187911 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 1980013 end: 2040037,  clip, speech, noise:0	58.1546	24.8066
+I1021 14:43:54.100282 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 2040037 end: 2100020,  clip, speech, noise:0	43.0865	22.9724
+I1021 14:44:54.991638 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 2100020 end: 2160003,  clip, speech, noise:0	43.7634	22.7971
+I1021 14:45:54.771205 17780 getrtspurldata.cpp:488] thread_no: [0]  start: 2160003 end: 2218879,  clip, speech, noise:0	51.0872	22.8577
+I1021 14:45:54.771205 17780 getrtspurldata.cpp:495] the end flag is: E_PLAY_OVER
+I1021 14:45:54.771205 17780 getrtspurldata.cpp:506] end  process voice check...
+I1021 14:45:54.782212 17780 getrtspurldata.cpp:515] rtsp stop success!thread_id[17780]
+I1021 14:45:54.782212 17780 getrtspurldata.cpp:543] Leave GetRtspUrlData::asr_voice_quality_detection process...hCheckClient[0]=00000000

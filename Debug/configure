@@ -1,0 +1,5 @@
+{
+	"check_conn_back_addr":"tcp://127.0.0.1:18001",
+	"asr_conn_back_addr":"tcp://127.0.0.1:17001",
+	"asr_server_addr":"tcp://192.168.2.167:5859"
+}
