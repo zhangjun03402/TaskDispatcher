@@ -23,7 +23,9 @@ const int TASK_ID_LEN   = 64;
 const int URL_LEN       = 256; //url长度
 const int TEXT_LEN      = 1024; //返回的text文本的长度
 const int RSP_MSG_LEN   = 256; //响应消息长度
-const int Max_Threads   = 5;   //最大线程数
+const int Max_Threads	= 5;   //最大线程数
+const int NBR_CHECK_WORKERS = 5;   //语音识别最大工作线程数
+const int NBR_RECOG_WORKERS	= 5;   //语音检测最大工作线程数
 const int RTSP_DATA_LEN = 800;
 const int MSG_BODY_LEN  = 1024;
 const int BUF_SIZE      = 1024;
@@ -86,16 +88,17 @@ typedef enum _E_BIZ_NAME_
 
 typedef enum _E_MSG_TYPE_
 {
-	E_MSG_TYPE_BIZ_NORMAL  = 1, //正常业务类消息
+	E_MSG_TYPE_BIZ_NORMAL = 1, //正常业务类消息
 	E_MSG_TYPE_ACCEPT_SUCC = 2, //连接成功
 	E_MSG_TYPE_SEND_FINISH = 3,
-	E_MSG_TYPE_BIZ_FAIL    = 4, //
-	E_MSG_TYPE_JSON_ERROR  = 5,  //json错误
-	E_MSG_TYPE_CONN_ERROR  = 6,   //连接错误，连接不到rtsp
-	E_MSG_TYPE_DOG_ERROR   = 7,    //加密狗验证错误
+	E_MSG_TYPE_BIZ_FAIL = 4, //
+	E_MSG_TYPE_JSON_ERROR = 5,  //json错误
+	E_MSG_TYPE_CONN_ERROR = 6,   //连接错误，连接不到rtsp
+	E_MSG_TYPE_DOG_ERROR = 7,    //加密狗验证错误
 	E_MSG_TYPE_USER_CANCEL = 8,
 	E_MSG_TYPE_STREAM_OVER = 9,  //流播放结束
-	E_MSG_TYPE_START_RTSP_ERROR = 10
+	E_MSG_TYPE_START_RTSP_ERROR = 10,
+	E_MSG_TYPE_SERVER_BUSY = 11 //服务忙
 }E_MSG_TYPE;
 
 typedef struct _log_st
