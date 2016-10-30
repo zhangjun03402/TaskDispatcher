@@ -44,7 +44,6 @@ extern CRITICAL_SECTION g_csCheck[Max_Threads];  //主意质量检测临界区
 extern threadsafe_queue<st_msg_queue>	g_msg_queue_check[Max_Threads];
 extern threadsafe_queue< st_msg_queue>	g_msg_queue_asr[Max_Threads];
 
-extern mutex				g_mtxCheckMsgQ[Max_Threads];
 extern mutex				g_mtxMapCtrl;
 extern condition_variable	g_ConVar;
 
@@ -149,93 +148,32 @@ int RTSP_AsrStatusCallBackFunc(CH_RTSP_STATUS rdcbd)
 	return rdcbd.nStatusType;
 }
 
-/* 任务控制，实际只有删除 */
-void GetRtspUrlData::UserCancelStream(zframe_t *id, TASK_CONTROL_INTERFACE &req, void *sock, int thread_no)
+bool GetRtspUrlData::UserCancelStream(TASK_CONTROL_INTERFACE &req)
 {
-	TASK_CTRL_INTER_RSP rsp;
-	memcpy(rsp.task_id, req.task_id, strlen(req.task_id) + 1);
-	//st_task_ctrl st;
-	
 	bool bRet(false);
-	CCtrlResponse rspCtrl(req.task_id);
-	{
-		std::unique_lock<std::mutex> lck(g_mtxMapCtrl);
-		bRet = g_ConVar.wait_for(lck, std::chrono::seconds(5),[=] {
-			bool bFind(false);
-			auto it = CGlobalSettings::mapTaskID2Ctrl.find(req.task_id);
-			if (it != CGlobalSettings::mapTaskID2Ctrl.end())
-			{
-				if (E_CTRL_SUCC == it->second.ctrl_type)
-				{
-					bFind = true;
-					CGlobalSettings::mapTaskID2Ctrl.erase(it);
-				}
-			}
-			else
-			{
-				LOG(INFO) << "task control:doesn't find this task!task_id:" << req.task_id;
-			}
-			return bFind;
-		});
-	}
-	if (bRet)
-		rspCtrl.sendResponse(id, sock, "success");
-	else
-		rspCtrl.sendResponse(id, sock, "fail");
-	
-	//memcpy(rsp.result, "success", sizeof("success")); //返回一个控制成功的消息
-	//send_rsp_2_task_ctrl(id, sock, rsp);
 
-	//while (true)
-	//{
-	//	/* 从map中查找该task_id相应的数据 */
-	//	//EnterCriticalSection(&CGlobalSettings::csMapCtrl);
-	//	std::unique_lock<std::mutex> lck(g_mtxMapCtrl);
-	//	auto it = CGlobalSettings::mapTaskID2Ctrl.find(req.task_id);
-	//	if(it != CGlobalSettings::mapTaskID2Ctrl.end())
-	//	{
-	//		st = it->second;
-	//		
-	//		/* 如果相应的状态为成功，返回一个控制成功消息，再把该条信息删除 */
-	//		if ( E_CTRL_SUCC== st.ctrl_type )
-	//		{
-	//			memcpy(rsp.result, "success", sizeof("success"));
-	//			send_rsp_2_task_ctrl(id, sock, rsp);
-	//			CGlobalSettings::mapTaskID2Ctrl.erase(it);
-	//			//LeaveCriticalSection(&CGlobalSettings::csMapCtrl);
-	//			lck.unlock();
-	//			break;
-	//		}
-	//	}
-	//	else /* 新添加，如果没有该任务id相应的map数据，则应返回给请求方一个响应。 */
-	//	{
-	//		LOG(INFO) << "task control:doesn't find this task!task_id:" << req.task_id;
-	//		//LeaveCriticalSection(&CGlobalSettings::csMapCtrl);
-	//		lck.unlock();
-	//		break;
-	//	}
-	//	//LeaveCriticalSection(&CGlobalSettings::csMapCtrl);
-	//	lck.unlock();
-	//	local_sleep(1);
-	//}
-	std::cout<<"task cancel success!task_id:" << req.task_id;
-	LOG(INFO) << "task control:business cancel success!task_id:" << req.task_id;
-	return;
+	std::unique_lock<std::mutex> lck(g_mtxMapCtrl);
+	bRet = g_ConVar.wait_for(lck, std::chrono::seconds(5),[=] {
+		bool bFind(false);
+		auto it = CGlobalSettings::mapTaskID2Ctrl.find(req.task_id);
+		if (it != CGlobalSettings::mapTaskID2Ctrl.end())
+		{
+			if (E_CTRL_SUCC == it->second.ctrl_type)
+			{
+				bFind = true;
+				CGlobalSettings::mapTaskID2Ctrl.erase(it);
+			}
+		}
+		else
+		{
+			LOG(INFO) << "task control:doesn't find this task!task_id:" << req.task_id;
+		}
+		return bFind;
+	});
+
+	return bRet;
 }
 
-/*************************************************
-Function:    asr_voice_quality_detection
-Description: 噪音检测实际业务处理程序
-Input:       zframe_t *id 消息帧头信息
-VOICE_CHECK_REQ *req 噪音检测请求结构体
-void *sock  创建的套接字
-Output:      NULl
-Return:      void
-Others:      由于请求结构体中有推送间隔，开始时间，处理
-时间。之前是在推送间隔的数据保存到vector，推送时
-间到达时，把vector里面的数据全部推送出去，经和郭
-的沟通，是只发送推送间隔那一刻检测到的值
-*************************************************/
 bool GetRtspUrlData::asr_voice_quality_detection(zframe_t *id, VOICE_CHECK_REQ* req, void* sock, int thread_no)
 {
 	LOG( INFO )<<"Enter "<<__FUNCTION__<<" process...";
@@ -263,34 +201,15 @@ bool GetRtspUrlData::asr_voice_quality_detection(zframe_t *id, VOICE_CHECK_REQ* 
 	float* fbuffer = new float[bufferSize >> 1];
 
 	/* 开始拉流，设置相应的参数 */
-	hCheckClient[thread_no] = CH_RTSP_Start(m_strRtspUrl.c_str(), E_RTSP_CONN_MODE_TCP, 8000, play_seconds, reconn_num, interval, NULL/*req->file_path*/);
+	hCheckClient[thread_no] = CH_RTSP_Start(m_strRtspUrl.c_str(), E_RTSP_CONN_MODE_TCP, 8000, play_seconds, reconn_num, interval, req->file_path);
 	//hCheckClient[thread_no] = CH_RTSP_Start( m_strRtspUrl.c_str(), E_RTSP_CONN_MODE_UDP, 8000 );
 	if (0 == hCheckClient[thread_no])
 	{
 		LOG(INFO) << "voice check module:start rtsp error!thread_id[" << GetCurrentThreadId() << "], m_strRtspUrl=[" << m_strRtspUrl.c_str() << "]";
-		//VOICE_CHECK_RSP rsp;
-		//noise_send_2_request(id, sock, rsp, req->task_id, E_MSG_TYPE_START_RTSP_ERROR);
 		cout << "voice check module:start rtsp error!" << endl;
-		upRspCheck->sendResponse(id, sock, E_MSG_TYPE_START_RTSP_ERROR);
+		upRspCheck->sendResponse(zframe_dup(id), sock, E_MSG_TYPE_START_RTSP_ERROR);
 		return false;
 	}
-
-	//int nTimes = 0;
-	//do {
-	//	hCheckClient[thread_no] = CH_RTSP_Start(m_strRtspUrl.c_str(), E_RTSP_CONN_MODE_TCP, 8000);// , play_seconds, reconn_num, interval, req->file_path);
-	//	if (0 == hCheckClient[thread_no])
-	//	{
-	//		if (2 == nTimes++)
-	//		{
-	//			cout << "Voice check module: restart rtsp error!" << endl;
-	//			upRspCheck->sendResponse(id, sock, E_MSG_TYPE_START_RTSP_ERROR);
-	//			return;
-	//		}
-	//		LOG(INFO) << "voice check module:start rtsp error!thread_id[" << GetCurrentThreadId() << "], m_strRtspUrl=[" << m_strRtspUrl.c_str() << "]";
-	//		LOG(INFO) << "thread_id[ " << GetCurrentThreadId() << " ] sleep for 5 seconds to reconnect!";
-	//		std::this_thread::sleep_for(std::chrono::seconds(5));
-	//	}
-	//} while (0 == hCheckClient[thread_no]);
 
 	/* 初始化时间为0 */
 	reset_init_time(thread_no, E_BIZ_NAME_CHECK);
@@ -341,45 +260,7 @@ bool GetRtspUrlData::asr_voice_quality_detection(zframe_t *id, VOICE_CHECK_REQ* 
 			LOG(INFO) << "voice check module:Get task control cancel,task_id:" << req->task_id;
 			break;
 		}
-		//LOG(INFO) << "the " << ++count << " time(s) loop. msg queue size: " << g_msg_queue_check[thread_no].size();
-		/* 取queue中的数据 */
-		//if (g_msg_queue_check[thread_no].empty())
-		//{
-		//	/* rtsp连接状态 */
-		//	if (E_RTSP_STATUS_RECON_SUCC == rtsp_status[thread_no] || E_RTSP_STATUS_CONN_SUCC == rtsp_status[thread_no])
-		//	{
-		//		/* 根据华夏要求，如果当前时间小于开始时间，要重新start，重新注册。实际状态未实现 */
-		//		if (req->start_time > start_time)
-		//		{
-		//			CH_RTSP_Stop(hCheckClient[thread_no]);
-		//			hCheckClient[thread_no] = CH_RTSP_Start(m_strRtspUrl.c_str(), E_RTSP_CONN_MODE_TCP, 8000, play_seconds, reconn_num, interval, req->file_path);
-		//			if (0 == hCheckClient[thread_no])
-		//			{
-		//				LOG(INFO) << "asr_voice_quality_detection re-start failed!";
-		//				upRspCheck->sendResponse(id, sock, E_MSG_TYPE_START_RTSP_ERROR);
-		//			}
-		//			CH_RTSP_SetAudioCallBackFunc(hCheckClient[thread_no], RTSP_AudioCallBackFunc, NULL);
-		//			CH_RTSP_SetStatusCallBackFunc(hCheckClient[thread_no], RTSP_StatusCallBackFunc, NULL);
-		//		}
-		//		timeout = 0;
-		//		std::this_thread::sleep_for(std::chrono::milliseconds(10));
-		//		continue;
-		//	}
-		//	std::this_thread::sleep_for(std::chrono::seconds(interval));
-
-		//	if (timeout >= reconn_num)
-		//	{
-		//		LOG(INFO)<< "reconnect rtsp fail!status["<< rtsp_status[thread_no]<<"]";
-		//		end_flag = true;
-		//		//VOICE_CHECK_RSP rsp;
-		//		//noise_send_2_request(id, sock, rsp, req->task_id, E_MSG_TYPE_CONN_ERROR);
-		//		upRspCheck->sendResponse(id, sock, E_MSG_TYPE_CONN_ERROR);
-		//	}
-		//	timeout++;
-		//	continue;
-		//}
-		//timeout = 0;
-
+		
 		st_msg_queue msg_queue;
 		bool bHave(false);
 		bHave = g_msg_queue_check[thread_no].wait_and_pop(msg_queue, 2 * interval * 1000);  //秒转换为毫秒, 最大等待2次重连时间，rtsp自己有重连功能
@@ -388,7 +269,7 @@ bool GetRtspUrlData::asr_voice_quality_detection(zframe_t *id, VOICE_CHECK_REQ* 
 			end_flag = true;
 			delete[] msg_queue.msg_body;
 			msg_queue.msg_body = nullptr;
-			upRspCheck->sendResponse(id, sock, E_MSG_TYPE_CONN_ERROR);
+			upRspCheck->sendResponse(zframe_dup(id), sock, E_MSG_TYPE_CONN_ERROR);
 			continue;
 		}
 
@@ -483,7 +364,7 @@ bool GetRtspUrlData::asr_voice_quality_detection(zframe_t *id, VOICE_CHECK_REQ* 
 			upRspCheck->sequence			= seq_no++;
 			upRspCheck->status_code			= E_STATUS_BIZ_NORMAL;
 			upRspCheck->setCheckParameter(res[0], res[1], res[2]);	//clip, speech, noise;
-			upRspCheck->sendResponse(id, sock, E_MSG_TYPE_BIZ_NORMAL);
+			upRspCheck->sendResponse(zframe_dup(id), sock, E_MSG_TYPE_BIZ_NORMAL);
 			cout <<"start: " <<rsp.result.start_time_stamp << " end: " << end_time << ",  clip, speech, noise:" << res[0] << "\t" << res[1] << "\t" << res[2] << endl;
 			//LOG(INFO) << "thread_no: ["<< thread_no<< "]  start: " << rsp.result.start_time_stamp << " end: " << end_time << ",  clip, speech, noise:" << res[0] << "\t" << res[1] << "\t" << res[2] << endl;
 
@@ -526,16 +407,11 @@ bool GetRtspUrlData::asr_voice_quality_detection(zframe_t *id, VOICE_CHECK_REQ* 
 	{
 		assert(!hCheckClient[thread_no]);
 		g_ConVar.notify_one();
-
-		//VOICE_CHECK_RSP rsp = { 0 };
-		//rsp.sequence = seq_no;
-		//rsp.result.start_time_stamp = rsp.result.end_time_stamp = end_time;
-		//noise_send_2_request(id, sock, rsp, req->task_id, E_MSG_TYPE_USER_CANCEL);
 		
 		upRspCheck->start_time_stamp= end_time;
 		upRspCheck->end_time_stamp	= end_time;
 		upRspCheck->sequence		= seq_no;
-		upRspCheck->sendResponse(id, sock, E_MSG_TYPE_USER_CANCEL);
+		upRspCheck->sendResponse(zframe_dup(id), sock, E_MSG_TYPE_USER_CANCEL);
 
 		LOG(INFO) << "Voice check cancel success,task_id:" << req->task_id;
 	}
@@ -709,9 +585,8 @@ bool GetRtspUrlData::asr_speech_recognition(zframe_t *id, AUDIO_DETECTOR_REQ *re
 	if (0 == hAsrClient[thread_no])
 	{
 		LOG(INFO) << "speech recognize module:start rtsp error!thread_id[" << GetCurrentThreadId() << "]，thread_no[" << thread_no << "], m_strRtspUrl=["<< m_strRtspUrl.c_str() << "]";
-		//vad_send_2_request(id, sock, *rsp, req->task_id, E_MSG_TYPE_START_RTSP_ERROR);
-		//delete rsp;
-		upRspRecog->sendResponse(id, sock, E_MSG_TYPE_START_RTSP_ERROR);
+
+		upRspRecog->sendResponse(zframe_dup(id), sock, E_MSG_TYPE_START_RTSP_ERROR);
 		return false;
 	}
 
@@ -732,48 +607,14 @@ bool GetRtspUrlData::asr_speech_recognition(zframe_t *id, AUDIO_DETECTOR_REQ *re
 			LOG(INFO) << "speech recognize module:Get task control cancel,task_id:" << req->task_id;
 			break;
 		}
-		//if (g_msg_queue_asr[thread_no].empty())
-		//{
-		//	if (E_RTSP_STATUS_RECON_SUCC == rtsp_asr_status[thread_no] || E_RTSP_STATUS_CONN_SUCC == rtsp_asr_status[thread_no])
-		//	{
-		//		if (req->start_time > start_time)
-		//		{
-		//			CH_RTSP_Stop(hAsrClient[thread_no]);
-		//			hAsrClient[thread_no] = CH_RTSP_Start(m_strRtspUrl.c_str(), E_RTSP_CONN_MODE_TCP, 8000, play_seconds, reconn_num, interval, req->file_path);
-		//			if (0 == hAsrClient[thread_no])
-		//			{
-		//				LOG(INFO) << "asr_speech_recognition re-registration failed!";
-		//				upRspRecog->sendResponse(id, sock, E_MSG_TYPE_START_RTSP_ERROR);
-		//				return false;
-		//			}
-		//			CH_RTSP_SetAudioCallBackFunc(hAsrClient[thread_no], ASR_Pull_RTSP_StreamCallBackFunc, NULL);
-		//			CH_RTSP_SetStatusCallBackFunc(hAsrClient[thread_no], RTSP_AsrStatusCallBackFunc, NULL);
-		//		}
-		//		timeout = 0;
-		//		LOG(INFO) << "msg queue empty, wait for stream! ";
-		//		std::this_thread::sleep_for(std::chrono::milliseconds(10));
-		//		continue;
-		//	}
-		//	std::this_thread::sleep_for(std::chrono::seconds(interval));
-		//	if (timeout >= reconn_num)
-		//	{
-		//		end_flag = true;
-		//		upRspRecog->sendResponse(id, sock, E_MSG_TYPE_CONN_ERROR);
-		//		//vad_send_2_request(id, sock, *rsp, req->task_id, E_MSG_TYPE_CONN_ERROR);
-		//		LOG(INFO) << "timeout times bigger than reconnect number!";
-		//	}
-		//	timeout++;
-		//	continue;
-		//}
-		//timeout = 0;
-
+		
 		st_msg_queue msg_queue;
 		bool bHave(false);
 		bHave = g_msg_queue_asr[thread_no].wait_and_pop(msg_queue, 2 * interval * 1000);  //秒转换为毫秒, 最大2次重连时间，rtsp自己有重连功能
 		if (!bHave) {
 			LOG(INFO) << "reconnect rtsp fail!status[" << rtsp_asr_status[thread_no] << "]";
 			end_flag = true;
-			upRspRecog->sendResponse(id, sock, E_MSG_TYPE_CONN_ERROR);
+			upRspRecog->sendResponse(zframe_dup(id), sock, E_MSG_TYPE_CONN_ERROR);
 			delete[] msg_queue.msg_body;
 			msg_queue.msg_body = nullptr;
 			continue;
@@ -895,7 +736,7 @@ bool GetRtspUrlData::asr_speech_recognition(zframe_t *id, AUDIO_DETECTOR_REQ *re
 		if (E_PLAY_OVER == msg_queue.end_flag)
 		{
 			LOG(INFO) << "the video stream is over!";
-			upRspRecog->sendResponse(id, sock, E_MSG_TYPE_STREAM_OVER);
+			upRspRecog->sendResponse(zframe_dup(id), sock, E_MSG_TYPE_STREAM_OVER);
 			//vad_send_2_request(id, sock, *rsp, req->task_id, E_MSG_TYPE_STREAM_OVER);
 			break;
 		}
@@ -930,13 +771,11 @@ bool GetRtspUrlData::asr_speech_recognition(zframe_t *id, AUDIO_DETECTOR_REQ *re
 	if (E_CTRL_CANCEL == end_type)
 	{
 		g_ConVar.notify_one();
-		//rsp->sequence = seq_no;
-		//rsp->result.start_time_stamp = rsp->result.end_time_stamp = cur_end_time;
-		//vad_send_2_request(id, sock, *rsp, req->task_id, E_MSG_TYPE_USER_CANCEL );
+
 		upRspRecog->sequence			= seq_no;
 		upRspRecog->start_time_stamp	= cur_end_time;
 		upRspRecog->end_time_stamp		= cur_end_time;
-		upRspRecog->sendResponse(id, sock, E_MSG_TYPE_USER_CANCEL);
+		upRspRecog->sendResponse(zframe_dup(id), sock, E_MSG_TYPE_USER_CANCEL);
 		LOG(INFO) << "speech recongnize module:task cancel success,task_id:" << req->task_id;
 	}
 
@@ -993,7 +832,7 @@ bool GetRtspUrlData::ASRService(zframe_t *id, void *sock, AUDIO_DETECTOR_REQ *re
 	cout << "the size of text is:" << strlen(rsp->result.text) << endl;
 
 	/* 把识别结果发往请求方 */
-	vad_send_2_request(id, sock, *rsp, req->task_id, E_MSG_TYPE_BIZ_NORMAL);
+	vad_send_2_request(zframe_dup(id), sock, *rsp, req->task_id, E_MSG_TYPE_BIZ_NORMAL);
 
 	//发送完毕之后，要恢复相应的状态
 	::memset(rsp, 0x00, sizeof(rsp->msg));

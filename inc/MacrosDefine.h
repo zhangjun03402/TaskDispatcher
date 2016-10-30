@@ -1,8 +1,13 @@
 #ifndef _MACROS_DEFINE_
 #define _MACROS_DEFINE_
+#include <cstring>
 
 #define M_PI 3.14159265358979323846
 #define LOG_FMT ("__FILE__","__LINE__")
+
+#define CHECK_WORKER_READY	"CHECK_READY"
+#define RECOG_WORKER_READY	"RECOG_READY"
+#define DEQUEUE(q) memmove (&(q)[0], &(q)[1], sizeof (q) - sizeof (q [0]))
 
 //函数参数传入、传出标识
 #define IN
