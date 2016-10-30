@@ -54,7 +54,7 @@ extern int rtsp_asr_status[Max_Threads];
 		*************************************************/
 		bool asr_voice_quality_detection(zframe_t *id,VOICE_CHECK_REQ* req, void *sock,int thread_no );
 		bool asr_speech_recognition( zframe_t *id, AUDIO_DETECTOR_REQ* req, void *sock,int thread_no );
-		bool UserCancelStream(TASK_CONTROL_INTERFACE &req);
+		void UserCancelStream(zframe_t *id, TASK_CONTROL_INTERFACE &req, void *sock,int thread_no );
 		void clear_msg_list(int thread_no, E_BIZ_NAME biz_name);
 		void reset_init_time(int thread_no, E_BIZ_NAME biz_name);
 		int  asr_reconn_rtsp(int thread_no,int reconn_count,int reconn_interval, E_BIZ_NAME biz_name);

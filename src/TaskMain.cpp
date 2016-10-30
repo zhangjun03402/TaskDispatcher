@@ -8,7 +8,6 @@
 #include "glog\logging.h"
 #include "GlobalSettings.h"
 #include "ThreadSafeQueue.h"
-#include "MessageParser.h"
 
 #include <queue>
 #include <map>
@@ -19,8 +18,8 @@
 #include <mutex>
 #include <condition_variable>
 
-#include <cstdio>
-#include <cstdlib>
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 using namespace Lingban::CoreLib;
@@ -28,14 +27,27 @@ using namespace Lingban::CoreLib;
 threadsafe_queue<st_msg_queue> g_msg_queue_check[Max_Threads];  //语音质量检测全局消息列表
 threadsafe_queue<st_msg_queue> g_msg_queue_asr[Max_Threads];
 
+std::mutex			g_mtxCheckMsgQ[Max_Threads];  //主意质量检测临界区
 std::mutex			g_mtxMapCtrl;
 condition_variable	g_ConVar;
 
 //using namespace Lingban::Common;
 
+extern CRITICAL_SECTION cs_log;
+
+#define VERSION_ "lb_v_0.1"
 int main(int argc, char *argv[])
 {
+
+//#ifdef WIN32
+//	InitializeCriticalSection(&cs_log);
+//#else
+//	pthread_mutex_init(&cs_log, NULL);
+//#endif
+
 	bool	bRet;
+	int		iRet;
+	string	strAddr;
 
 	// 初始化：读取配置文件，获得地址:端口信息；检测日志文件夹是否存在
 	bRet = CGlobalSettings::GetInstance().Initialize();
@@ -54,14 +66,20 @@ int main(int argc, char *argv[])
 	LOG(INFO) << "noise check back addr:" << CGlobalSettings::GetInstance().GetDetectBrokerBackAddr() << "! recog back addr:" << CGlobalSettings::GetInstance().GetRecogBrokerBackAddr();
 	LOG(INFO) << "ASR Server Addr: " << CGlobalSettings::GetInstance().GetASRServerAddr();
 
+	/* set log print*
+	* SetupLog(const char *path, const char *prefix, int flush_size, int archive_size, int mode) 
+	*/
+	//CLog::SetupLog("log","lingban",1024, 1024*1024, LOG_MODE_BOTH);
+	//CLog::SetLevel(LOG_DEBUG);
+
+	//register_log(CLog::__LOG);
+
 	/* 初始化加密狗 */
-	int iRet = CLicense::GetInstance().Start(200, 30);
-	if (!iRet) {
-		LOG(INFO) << "Init Encrypted Dog Failed!";
-		cout << "Init Encrypted Dog Failed!" << endl;
-		google::ShutdownGoogleLogging();
-		return EXIT_FAILURE;
-	}
+	iRet = CLicense::GetInstance().Start(200, 30);
+
+	LOG(INFO) << "Init Encrypted dog authentication ret:"<< iRet;
+
+	//LOG(INFO) << "Init configure files success,noise_addr:" << conn_noise_back_addr <<" recog_addr:"<< conn_recog_back_addr;
 
 	/* 初始化临界区(全局map控制)，主要是任务控制时要使用 */
 	InitializeCriticalSection(&CGlobalSettings::csMapCtrl);
@@ -75,251 +93,89 @@ int main(int argc, char *argv[])
 	}
 
 	/* 初始化华夏电通拉流 */
-	CH_RTSP_Init(NULL);
-
-	zctx_t *ctx = zctx_new();
-	void *frontend = zsocket_new(ctx, ZMQ_ROUTER);
-	void *backend = zsocket_new(ctx, ZMQ_ROUTER);
-
-	// IPC doesn't yet work on MS Windows.
-#if (defined (WIN32))
-	zsocket_bind(frontend, "tcp://*:18000");
-	zsocket_bind(backend, "tcp://*:18001");
-#else
-	zsocket_bind(frontend, "ipc://frontend.ipc");
-	zsocket_bind(backend, "ipc://backend.ipc");
-#endif
-
-	vector<shared_ptr<thread>> vect_worker_threads;
-	/*语音检测线程*/
-	string strAddr = CGlobalSettings::GetInstance().GetDetectBrokerBackAddr();
-	for (int nbr = 0; nbr < NBR_CHECK_WORKERS; ++nbr)
+	iRet = CH_RTSP_Init(NULL);
+	if (iRet != 0)
 	{
-		auto conn_noise_back = make_shared<thread>(worker_noise_check, strAddr, nbr);
-		vect_worker_threads.emplace_back(conn_noise_back);
+		LOG(INFO) << "Init RTSP failed! Please check whether the service is already started!";
+		return EXIT_FAILURE;
 	}
-	/*语音识别线程*/
+
+	void *context = zmq_ctx_new();
+	if (nullptr == context)
+	{
+		LOG(INFO)<< "create zmq context error!err:["<< zmq_strerror(zmq_errno())<<"]";
+		return -1;
+	}
+
+	LOG(INFO) << "Create zmq context success";
+
+	/* new任务对象 */
+	shared_ptr<TaskControl> spTaskCtrl = make_shared<TaskControl>(context);
+	if (nullptr == spTaskCtrl)
+	{
+		LOG(INFO) << "new task control is null";
+		return 0;
+	}
+
+	LOG(INFO) << "new task control success";
+
+	/* 创建语音质量检测线程 */
+	auto  Noise_broker = make_shared<thread>([spTaskCtrl] {spTaskCtrl->NoiseRoutine();});
+
+	/* 创建语音识别检测线程 */
+	auto Recog_broker = make_shared<thread>([spTaskCtrl] {spTaskCtrl->RecogRoutine();});
+
+	srandom((unsigned)time(NULL));
+
+	/* 创建连接语音质量检测线程，处理噪音检测发送过来的请求，并把处理结果返回给请求方 */
+	strAddr = CGlobalSettings::GetInstance().GetDetectBrokerBackAddr();
+	vector<shared_ptr<thread>> Noise_workers;
+	for (auto i=0; i < Max_Threads; i++ )
+	{
+		auto conn_noise_back = make_shared<thread>(ProcessNoiseCheck, context, /*conn_noise_back_addr*/strAddr, (void *)(intptr_t)i);
+		Noise_workers.emplace_back( conn_noise_back );
+	}
+	
+	LOG(INFO) << "Create voice check threads success";
+
+	/* 创建连接语音识别线程池，处理语音识别类请求，并把处理结果返回给请求方 */
 	strAddr = CGlobalSettings::GetInstance().GetRecogBrokerBackAddr();
-	for (int nbr = 0; nbr < NBR_RECOG_WORKERS; nbr++)
+	vector<shared_ptr<thread>> Recog_workers;
+	for (auto i = 0; i < Max_Threads; i++)
 	{
-		auto conn_recog_back = make_shared<thread>(worker_speech_recog, strAddr, nbr);
-		vect_worker_threads.emplace_back(conn_recog_back);
+		auto conn_recog_back = make_shared<thread>(ProcessVoiceDetector, context,  /*conn_recog_back_addr*/strAddr, (void *)(intptr_t)i);
+		Recog_workers.emplace_back(conn_recog_back);
 	}
 
-	int nCheckThreads(0), nRecogThreads(0);
-	string			strTaskID;
-	E_BIZ_TYPE		emReqType(E_BIZ_TYPE_UNKOWN);
+	LOG(INFO) << "Create speech recognize threads success";
 
-	unique_ptr<GetRtspUrlData>	getRtsp(new GetRtspUrlData);
-	unique_ptr<CResponseMsg>	upRspMessage;
-
-	//  Queue of available workers
-	zlist_t *check_worker_queue = zlist_new();
-	zlist_t *recog_worker_queue = zlist_new();
-
-	while (true) {
-		zmq_pollitem_t items[] = {
-			{ backend, 0, ZMQ_POLLIN, 0 },
-			{ frontend, 0, ZMQ_POLLIN, 0 }
-		};
-
-		int rc = zmq_poll(items, 2, -1);
-		if (rc == -1)
-			break;              //  Interrupted
-
-		//  Handle worker activity on backend
-		if (items[0].revents & ZMQ_POLLIN) {
-			//  Use worker identity for load-balancing
-			zmsg_t *msg = zmsg_recv(backend);
-			if (!msg)
-				break;          //  Interrupted
-			
-			zframe_t *id_worker = zmsg_pop(msg);
-			zframe_t *delimiter = zmsg_pop(msg);
-			zframe_destroy(&delimiter);
-			char *str_worker = zframe_strdup(id_worker);
-			LOG(INFO) << "Msg from worker thread: " << str_worker;
-			free(str_worker);
-
-			// Forward message to client if it's not a READY
-			zframe_t *first_content_frame = zmsg_first(msg);
-
-			if (memcmp(zframe_data(first_content_frame), CHECK_WORKER_READY, strlen(CHECK_WORKER_READY)) == 0) {	// check
-				zlist_append(check_worker_queue, id_worker);
-				zmsg_destroy(&msg);
-				continue;
-			}
-			else if(memcmp(zframe_data(first_content_frame), RECOG_WORKER_READY, strlen(RECOG_WORKER_READY)) == 0){	// recognize
-				zlist_append(recog_worker_queue, id_worker);
-				zmsg_destroy(&msg);
-				continue;
-			}
-			zframe_destroy(&id_worker);
-
-			//Forward left msg to frontend
-			zmsg_send(&msg, frontend);
-
-		} //if (items[0].revents & ZMQ_POLLIN)
-
-		if (items[1].revents & ZMQ_POLLIN) {
-			//  Get client request, route to first available worker
-			zmsg_t *msg = zmsg_recv(frontend);
-			if (!msg)
-				break;          //  Interrupted
-
-			zframe_t *worker_frame = NULL;
-
-			zframe_t *id_frame = zmsg_pop(msg);			// client id
-			zframe_t *null_frame = zmsg_pop(msg);		// null
-			zframe_t *content_frame = zmsg_pop(msg);	// client request
-
-			char *content_str = zframe_strdup(content_frame);
-			zframe_t *id_copy = zframe_dup(id_frame);	// client id
-
-			CMessageParser JsonParser;
-			JsonParser.Init(content_str);
-
-			zframe_destroy(&null_frame);
-			zmsg_destroy(&msg);
-			free(content_str);
-
-			emReqType = JsonParser.GetReqMsgType();
-			strTaskID = JsonParser.GetReqTaskID();
-
-			if (E_BIZ_TYPE_CTRL == emReqType)
-			{
-				LOG(INFO) << "req_type E_BIZ_TYPE_CTRL";
-				upRspMessage = unique_ptr<CCtrlResponse>(new CCtrlResponse(strTaskID));
-				//zframe_t *id_copy = zframe_dup(id_frame);
-				upRspMessage->sendResponse(zframe_dup(id_frame), frontend, E_MSG_TYPE_ACCEPT_SUCC, false);
-
-				TASK_CONTROL_INTERFACE task_req;
-
-				JsonParser.GetCtrlReq(task_req);
-				if (stricmp(task_req.ctrl_flag, "cancel") == 0)
-				{
-					bool bFind(false);
-					std::unique_lock<std::mutex> lck(g_mtxMapCtrl);
-					auto it = CGlobalSettings::mapTaskID2Ctrl.find(task_req.task_id);
-					if (it != CGlobalSettings::mapTaskID2Ctrl.end())
-					{
-						it->second.ctrl_type = E_CTRL_CANCEL;
-						bFind = true;
-					}
-					lck.unlock();
-
-					if (!bFind)  /*指定要控制的任务不存在*/
-					{
-						LOG(INFO) << "Ctrl task for cancel not exist!";
-						upRspMessage->sendResponse(id_frame, frontend, "Fail: Ctrl task for cancel not exist!");
-					}
-					else {
-						bRet = getRtsp->UserCancelStream(task_req);
-						if (bRet) {
-							upRspMessage->sendResponse(id_frame, frontend, "success");
-							std::cout << "task cancel success!task_id:" << task_req.task_id;
-							LOG(INFO) << "task control:business cancel success!task_id:" << task_req.task_id;
-						}
-						else {
-							upRspMessage->sendResponse(id_frame, frontend, "fail");
-							std::cout << "task cancel fail!task_id:" << task_req.task_id;
-							LOG(INFO) << "task control:business cancel fail!task_id:" << task_req.task_id;
-						}
-					}
-				}
-				else
-				{
-					LOG(INFO) << "Only support ctrl-task of CANCEL type! but recv a " << task_req.ctrl_flag << " type!";
-					upRspMessage->sendResponse(id_frame, frontend, "Only support ctrl-task of CANCEL type!");
-				}
-				//zframe_destroy(&id_frame);	//无需释放，消息发送时自动释放
-				//zframe_destroy(&id_copy);
-				continue;		//跳过后面check和asr的执行
-			}
-			else if (E_BIZ_TYPE_CHECK == emReqType)
-			{
-				LOG(INFO) << "req_type ：E_BIZ_TYPE_CHECK";
-				upRspMessage = unique_ptr<CCheckResponse>(new CCheckResponse(strTaskID));
-				
-				if (0 == zlist_size(check_worker_queue)) {
-					upRspMessage->sendResponse(id_frame, frontend, E_MSG_TYPE_SERVER_BUSY, false);
-					continue;
-				}
-
-				/* 对加密狗进行检验 */
-				//int lic_ret = CLicense::GetInstance().Status(0);
-				//if (CLicense::LIC_OK != lic_ret)
-				//{
-				//	LOG(INFO) << "Encrypted dog authentication failure,status[" << lic_ret << "]";
-				//	upRspMessage->sendResponse(id_frame, frontend, E_MSG_TYPE_DOG_ERROR, false);
-				//	zframe_destroy(&id_frame);
-				//	continue;
-				//}
-
-				upRspMessage->sendResponse(id_frame, frontend, E_MSG_TYPE_ACCEPT_SUCC, false);
-
-				worker_frame = (zframe_t *)zlist_pop(check_worker_queue);
-			}
-			else if (E_BIZ_TYPE_ASR == emReqType)
-			{
-				LOG(INFO) << " req_type ：E_BIZ_TYPE_ASR";
-				upRspMessage = unique_ptr<CRecogResponse>(new CRecogResponse(strTaskID));
-
-				if (0 == zlist_size(recog_worker_queue)) {
-					upRspMessage->sendResponse(id_frame, frontend, E_MSG_TYPE_SERVER_BUSY, false);
-					continue;
-				}
-				/* 加密狗检验 */
-				int lic_ret = CLicense::GetInstance().Status(0);
-				if (CLicense::LIC_OK != lic_ret)
-				{
-					LOG(INFO) << "Encrypted dog authentication failure,status[ " << lic_ret << " ]";
-					upRspMessage->sendResponse(id_frame, frontend, E_MSG_TYPE_DOG_ERROR, false);
-					continue;
-				}
-				upRspMessage->sendResponse(id_frame, frontend, E_MSG_TYPE_ACCEPT_SUCC, false);
-
-				worker_frame = (zframe_t *)zlist_pop(recog_worker_queue);
-			}
-			else
-			{
-				LOG(INFO) << "------------Receive an unkown type request Msg, ignore it------------";
-				upRspMessage->sendResponse(id_frame, frontend, E_MSG_TYPE_JSON_ERROR, false);
-				continue;
-			}
-
-			zmsg_t *msg1 = zmsg_new();
-			zmsg_push(msg1, content_frame);
-			zmsg_pushmem(msg1, NULL, 0);
-			zmsg_push(msg1, id_copy);			// client
-			zmsg_pushmem(msg1, NULL, 0);		// delimiter
-			zmsg_push(msg1, worker_frame);		// worker
-
-			zmsg_send(&msg1, backend);			// send
-		} //if (items[1].revents & ZMQ_POLLIN)
-	} // while
-
-	//  When we're done, clean up properly
-	while (zlist_size(check_worker_queue)) {
-		zframe_t *frame = (zframe_t *)zlist_pop(check_worker_queue);
-		zframe_destroy(&frame);
-	}
-	while (zlist_size(check_worker_queue)) {
-		zframe_t *frame = (zframe_t *)zlist_pop(check_worker_queue);
-		zframe_destroy(&frame);
-	}
-
-	for (auto thrd : vect_worker_threads)
+	if (Noise_broker)
 	{
-		thrd->join();
+		Noise_broker->join();
+	}
+	if (Recog_broker)
+	{
+		Recog_broker->join();
 	}
 
-	zlist_destroy(&check_worker_queue);
-	zlist_destroy(&recog_worker_queue);
-	zctx_destroy(&ctx);
+	for ( auto conn_noise_back:Noise_workers )
+	{
+		conn_noise_back->join();
+	}
+	for ( auto conn_recog_back:Recog_workers )
+	{
+		conn_recog_back->join();
+	}
 
 	DeleteCriticalSection(&CGlobalSettings::csMapCtrl);
 
+
+//#ifdef WIN32
+//	DeleteCriticalSection(&cs_log);
+//#else
+//	pthread_mutex_destroy(&cs_log);
+//#endif
+//
 	CH_RTSP_UnInit();
 	LOG(INFO) << "Program exit...";
 	google::ShutdownGoogleLogging();

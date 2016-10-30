@@ -245,7 +245,7 @@ int CLicense::Status(int *_hasp_status)
 lic_result_t CLicense::Start(int _feature_id, int _n_permission)
 {
 	unsigned char term_reading_buffer[4];
-	int max_try = 3;
+	int max_try = 1000;
 	sprintf(error_string, "");
 	if (!enc_flag){
 		VendercodeEncDenc();
