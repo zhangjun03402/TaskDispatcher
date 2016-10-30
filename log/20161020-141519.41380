@@ -1,8 +1,0 @@
-Log file created at: 2016/10/20 14:15:19
-Running on machine: DESKTOP-PCPPFQT
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-I1020 14:15:19.384742  5168 taskmain.cpp:65] Init log modules success
-I1020 14:15:19.386744  5168 taskmain.cpp:66] noise check back addr:tcp://127.0.0.1:18001! recog back addr:tcp://127.0.0.1:17001
-I1020 14:15:19.386744  5168 taskmain.cpp:67] ASR Server Addr: tcp://192.168.2.167:5859
-I1020 14:15:19.541856  5168 taskmain.cpp:80] Init Encrypted dog authentication ret:1
-I1020 14:15:19.541856  5168 taskmain.cpp:86] Init CriticalSection CGlobalSettings::csMapCtrl success

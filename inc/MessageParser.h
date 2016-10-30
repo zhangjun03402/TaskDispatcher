@@ -14,9 +14,9 @@ public:
 	CResponseMsg(string strTaskID);
 	virtual E_BIZ_TYPE	getRspMsgType();
 	virtual void		sendResponse(zframe_t *id_frame, void *sock, string strCtrlResult){ }
-	virtual void		sendResponse(zframe_t *id_frame, void *sock, E_MSG_TYPE msgType){ }
+	virtual void		sendResponse(zframe_t *id_frame, void *sock, E_MSG_TYPE msgType, bool bWorker = true){ }
 
-	void				sendZframe(zframe_t *id_frame, void *sock, string strJson);
+	void				sendZframe(zframe_t *id_frame, void *sock, string strJson, bool bWorker = true);
 };
 
 //控制应答消息类
@@ -42,7 +42,7 @@ public:
 
 	virtual E_BIZ_TYPE	getRspMsgType();
 	virtual string		RspMsg2JsonStr(E_MSG_TYPE msgType);
-	virtual void		sendResponse(zframe_t *id_frame, void *sock, E_MSG_TYPE msgType);
+	virtual void		sendResponse(zframe_t *id_frame, void *sock, E_MSG_TYPE msgType, bool bWorker = true);
 	virtual void		setCheckParameter(float	fClip, float fSpeech, float fNoise) {}
 	virtual void		setRecogParameter(string strText){}
 	void				buildRspMsg(E_MSG_TYPE msgType);

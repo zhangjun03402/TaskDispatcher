@@ -12,17 +12,19 @@ E_BIZ_TYPE	CResponseMsg::getRspMsgType()
 {
 	return E_BIZ_TYPE_UNKOWN;
 }
-void CResponseMsg::sendZframe(zframe_t *id_frame, void *sock, string strJson)
+void CResponseMsg::sendZframe(zframe_t *id_frame, void *sock, string strJson, bool bWorker)
 {
-	zframe_t *nul_frame = zframe_new("", 1);
 	zframe_t *response_frame = zframe_new(strJson.c_str(), strJson.size());
 
-	zframe_send(&id_frame, sock, ZFRAME_REUSE + ZFRAME_MORE);
-	zframe_send(&nul_frame, sock, ZFRAME_REUSE + ZFRAME_MORE);
-	zframe_send(&response_frame, sock, 0);
-
-	zframe_destroy(&nul_frame);
-	zframe_destroy(&response_frame);
+	zmsg_t *msg = zmsg_new();
+	if(bWorker)
+		zmsg_addmem(msg, NULL, 0);			// delimiter
+	zmsg_append(msg, &id_frame);
+	zmsg_addmem(msg, NULL, 0);			// delimiter
+	zmsg_append(msg, &response_frame);
+	
+	zmsg_send(&msg, sock);
+	assert(response_frame == NULL);
 }
 
 CCtrlResponse::CCtrlResponse(string strTaskID) : CResponseMsg(strTaskID)
@@ -42,7 +44,7 @@ void CCtrlResponse::sendResponse(zframe_t *id_frame, void *sock, string strCtrlR
 
 	strJson = root.toStyledString();
 
-	sendZframe(id_frame, sock, strJson);
+	sendZframe(id_frame, sock, strJson, false);
 }
 
 //voice response base class of check and recog
@@ -57,11 +59,11 @@ E_BIZ_TYPE CVoiceResponse::getRspMsgType()
 {
 	return E_BIZ_TYPE_UNKOWN;
 }
-void CVoiceResponse::sendResponse(zframe_t *id_frame, void *sock, E_MSG_TYPE msgType)
+void CVoiceResponse::sendResponse(zframe_t *id_frame, void *sock, E_MSG_TYPE msgType, bool bWorker)
 {
 	string strJson = this->RspMsg2JsonStr(msgType);
 
-	sendZframe(id_frame, sock, strJson);
+	sendZframe(id_frame, sock, strJson, bWorker);
 }
 string	CVoiceResponse::RspMsg2JsonStr(E_MSG_TYPE msgType)
 {
@@ -93,7 +95,7 @@ void CVoiceResponse::buildRspMsg(E_MSG_TYPE msgType)
 		status_code = E_STATUS_START_RTSP_ERR;
 		break;
 	case E_MSG_TYPE_DOG_ERROR:
-		message			= "Encrypted dog authentication failed!";
+		message	= "Encrypted dog authentication failed!";
 		status_code = E_STATUS_AUTH_DOG_ERROR;
 		break;
 	case E_MSG_TYPE_JSON_ERROR:
@@ -109,8 +111,12 @@ void CVoiceResponse::buildRspMsg(E_MSG_TYPE msgType)
 		status_code = E_STATUS_STREAM_IS_OVER;
 		break;
 	case E_MSG_TYPE_USER_CANCEL:
-		message = "user cancel success";
+		message = "user cancel success!";
 		status_code = E_STATUS_BIZ_CANCEL_SUCC;
+		break;
+	case E_MSG_TYPE_SERVER_BUSY:
+		message = "server is busy£¬please try again later!";
+		status_code = E_STATUS_FINISH;
 		break;
 	default:
 		break;
